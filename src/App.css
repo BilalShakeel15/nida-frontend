@@ -2906,11 +2906,9 @@ label {
   .card-single {
     height: 23vh;
     margin-bottom: 1rem;
-  }
-  */ .card-single {
-    /* flex: 1 1 calc(25% - 20px); */
     flex-direction: column;
   }
+
   .signup-page {
     margin-top: 13rem;
   }
