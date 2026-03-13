@@ -1,0 +1,273 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600&display=swap');
+
+/* ─── Admin Navbar ─── */
+.admin-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: 62px;
+  background: #ffffff;
+  border-bottom: 2px solid #ffe4ec;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+  box-shadow: 0 2px 16px rgba(212, 53, 140, 0.08);
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* Brand */
+.admin-nav__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.admin-nav__logo {
+  font-size: 1.4rem;
+  color: #d4358c;
+  line-height: 1;
+}
+.admin-nav__title {
+  display: block;
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1a1a2e;
+  line-height: 1.1;
+}
+.admin-nav__subtitle {
+  display: block;
+  font-size: 0.68rem;
+  color: #d4358c;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Desktop Links */
+.admin-nav__links {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.admin-nav__links::-webkit-scrollbar {
+  display: none;
+}
+
+.admin-nav__link {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: #555;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.18s ease;
+}
+.admin-nav__link:hover {
+  background: #fdf2f4;
+  color: #d4358c;
+}
+.admin-nav__link--active {
+  background: linear-gradient(135deg, #fce4f3, #ffe4ec);
+  color: #d4358c;
+  font-weight: 700;
+}
+.admin-nav__link-icon {
+  font-size: 0.85rem;
+}
+
+/* Right side */
+.admin-nav__right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+.admin-nav__badge {
+  background: linear-gradient(135deg, #d4358c, #e8549a);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.admin-nav__logout {
+  background: transparent;
+  border: 1.5px solid #ffc3c3;
+  color: #d4358c;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.35rem 0.9rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.18s ease;
+}
+.admin-nav__logout:hover {
+  background: #d4358c;
+  border-color: #d4358c;
+  color: #fff;
+}
+
+/* ─── Hamburger ─── */
+.admin-nav__hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+.admin-nav__hamburger:hover {
+  background: #fdf2f4;
+}
+.admin-nav__hamburger span {
+  display: block;
+  height: 2px;
+  background: #d4358c;
+  border-radius: 2px;
+  transition: all 0.25s ease;
+  width: 100%;
+}
+.admin-nav__hamburger.open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.admin-nav__hamburger.open span:nth-child(2) {
+  opacity: 0;
+}
+.admin-nav__hamburger.open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ─── Mobile Drawer ─── */
+.admin-nav__overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 998;
+}
+.admin-nav__drawer {
+  position: fixed;
+  top: 0;
+  right: -280px;
+  width: 270px;
+  height: 100vh;
+  background: #fff;
+  z-index: 999;
+  box-shadow: -4px 0 24px rgba(212, 53, 140, 0.12);
+  display: flex;
+  flex-direction: column;
+  transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: auto;
+  font-family: 'DM Sans', sans-serif;
+}
+.admin-nav__drawer--open {
+  right: 0;
+}
+
+.admin-nav__drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 1.25rem 1rem;
+  border-bottom: 1.5px solid #ffe4ec;
+}
+.admin-nav__drawer-close {
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  color: #888;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: all 0.15s;
+}
+.admin-nav__drawer-close:hover {
+  background: #fdf2f4;
+  color: #d4358c;
+}
+
+.admin-nav__drawer-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #444;
+  text-decoration: none;
+  border-bottom: 1px solid #fafafa;
+  transition: all 0.15s;
+}
+.admin-nav__drawer-link:hover {
+  background: #fdf2f4;
+  color: #d4358c;
+  padding-left: 1.5rem;
+}
+.admin-nav__drawer-link--active {
+  background: linear-gradient(135deg, #fce4f3, #ffe4ec);
+  color: #d4358c;
+  font-weight: 700;
+  border-left: 3px solid #d4358c;
+}
+.admin-nav__drawer-logout {
+  margin: 1rem 1.25rem;
+  background: linear-gradient(135deg, #d4358c, #e8549a);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 0.75rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: opacity 0.2s;
+  margin-top: auto;
+}
+.admin-nav__drawer-logout:hover {
+  opacity: 0.88;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 1024px) {
+  .admin-nav__links {
+    display: none;
+  }
+  .admin-nav__logout {
+    display: none;
+  }
+  .admin-nav__hamburger {
+    display: flex;
+  }
+  .admin-nav__overlay {
+    display: block;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-nav {
+    padding: 0 1rem;
+  }
+  .admin-nav__badge {
+    display: none;
+  }
+}

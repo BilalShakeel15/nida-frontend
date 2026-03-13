@@ -1,0 +1,243 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600&display=swap');
+
+.od-page {
+  padding: 2rem 2.5rem 4rem;
+  background: #fdf2f4;
+  min-height: 100vh;
+  font-family: 'DM Sans', sans-serif;
+  margin-top: 56px;
+}
+
+.od-topbar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+.od-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.9rem;
+  color: #1a1a2e;
+  margin: 0;
+  flex: 1;
+}
+.od-back-btn {
+  padding: 0.5rem 1rem;
+  background: #fff;
+  border: 1.5px solid #ffc3c3;
+  border-radius: 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  color: #d4358c;
+  cursor: pointer;
+  font-size: 0.88rem;
+  transition: all 0.2s;
+}
+.od-back-btn:hover {
+  background: #d4358c;
+  color: #fff;
+}
+.od-badge {
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.od-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.od-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+.od-card--full {
+  /* full width card */
+}
+.od-card__head {
+  padding: 1rem 1.5rem;
+  background: linear-gradient(135deg, #fff0f4, #ffe4ec);
+  font-weight: 700;
+  color: #1a1a2e;
+  font-size: 0.95rem;
+  border-bottom: 1px solid #ffe4ec;
+}
+
+.od-info-list {
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.od-info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.88rem;
+}
+.od-info-row span {
+  color: #aaa;
+  font-size: 0.82rem;
+}
+.od-info-row strong {
+  color: #1a1a2e;
+  text-align: right;
+}
+.od-info-row--full {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+}
+.od-info-row--full strong {
+  text-align: left;
+}
+
+/* Payment */
+.od-payment {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+.od-payment-img {
+  max-width: 280px;
+  max-height: 280px;
+  object-fit: contain;
+  border-radius: 10px;
+  border: 2px solid #ffc3c3;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.od-payment-img:hover {
+  transform: scale(1.02);
+}
+.od-payment-hint {
+  font-size: 0.75rem;
+  color: #aaa;
+}
+.od-no-payment {
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: #ccc;
+}
+.od-no-payment span {
+  font-size: 2rem;
+}
+.od-no-payment p {
+  font-size: 0.88rem;
+  margin: 0;
+}
+
+/* Products */
+.od-products {
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.od-loading {
+  padding: 2rem;
+  text-align: center;
+  color: #bbb;
+}
+.od-product {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: #fafafa;
+  border-radius: 12px;
+  transition: background 0.2s;
+}
+.od-product:hover {
+  background: #fff0f4;
+}
+.od-product-img {
+  width: 72px;
+  height: 72px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 2px solid #ffe4ec;
+}
+.od-product-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+.od-product-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.od-product-cat,
+.od-product-pieces {
+  font-size: 0.75rem;
+  color: #aaa;
+}
+.od-product-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+.od-qty-badge {
+  background: #ffe4ec;
+  color: #d4358c;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+.od-product-price {
+  font-weight: 700;
+  color: #1a1a2e;
+  font-size: 0.95rem;
+}
+
+/* Not found */
+.od-notfound {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  gap: 0.75rem;
+  text-align: center;
+}
+.od-notfound h2 {
+  font-family: 'Playfair Display', serif;
+  color: #1a1a2e;
+  margin: 0;
+}
+.od-notfound p {
+  color: #aaa;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .od-page {
+    padding: 1.25rem 1rem 3rem;
+  }
+  .od-grid {
+    grid-template-columns: 1fr;
+  }
+}

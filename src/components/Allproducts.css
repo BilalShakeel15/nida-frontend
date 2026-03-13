@@ -1,0 +1,501 @@
+/* Container */
+.new-card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 30px;
+  padding: 0px 0px;
+  max-width: 1400px;
+  margin: 2rem auto;
+}
+.shop-heading {
+  font-family: 'Playfair Display';
+  font-style: italic;
+  font-weight: 700;
+  font-size: 60px;
+  line-height: 60px;
+  margin-top: 4rem;
+}
+
+.products-page {
+  display: flex;
+  justify-content: end;
+}
+/* Product Card */
+.new-product-card {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.new-product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Image Wrapper */
+.product-image-wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 100%; /* 1:1 Aspect Ratio */
+  overflow: hidden;
+  background: #f5f5f5;
+  height: 500px;
+}
+
+.product-main-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.new-product-card:hover .product-main-image {
+  transform: scale(1.05);
+}
+
+/* Wishlist Button */
+.wishlist-btn {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  width: 40px;
+  height: 40px;
+  background: white;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.wishlist-btn:hover {
+  background: #ff69b4;
+  transform: scale(1.1);
+}
+
+.wishlist-btn:hover i {
+  color: white;
+}
+
+.wishlist-btn i {
+  font-size: 18px;
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+/* Product Badge */
+.product-badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: #ff6b9d;
+  color: white;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 18px;
+  font-weight: 600;
+  /* text-transform: uppercase; */
+  letter-spacing: 0.5px;
+  z-index: 2;
+  font-family: 'Inter', sans-serif !important;
+}
+
+/* Hover Overlay */
+.hover-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  animation: fadeIn 0.3s ease forwards;
+  z-index: 1;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  gap: 15px;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.action-btn {
+  width: 50px;
+  height: 50px;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.action-btn:hover {
+  transform: scale(1.15);
+}
+
+.view-btn i {
+  color: #333;
+  font-size: 20px;
+}
+
+.cart-btn {
+  background: #ff69b4;
+}
+
+.cart-btn i {
+  color: white;
+  font-size: 20px;
+}
+
+/* Product Info */
+.product-info {
+  padding: 20px;
+}
+
+.product-category {
+  /* display: inline-block; */
+  color: #e60076;
+  background-color: #fdf2f8;
+  font-size: 14px;
+  font-weight: 600;
+  /* text-transform: uppercase; */
+  margin-bottom: 8px;
+  letter-spacing: 0px;
+  padding: 6px 16px;
+  border-radius: 50px;
+  width: 25%;
+  font-family: 'Inter', sans-serif !important;
+  margin-right: 0.5rem;
+  text-align: center;
+}
+
+.product-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 12px;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-family: 'Inter', sans-serif !important;
+}
+
+.product-price {
+  font-size: 24px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 0;
+}
+
+/* Admin Controls */
+.admin-controls {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+  display: flex;
+  gap: 15px;
+}
+
+.admin-icon {
+  font-size: 18px;
+  color: #ff69b4;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.admin-icon:hover {
+  color: #333;
+  transform: scale(1.2);
+}
+
+/* No Products */
+.no-products {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px 20px;
+  font-size: 18px;
+  color: #999;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .products-page {
+    justify-content: center;
+  }
+  .product-image-wrapper {
+    height: 0px;
+  }
+  .new-card-container {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 25px;
+  }
+}
+
+@media (max-width: 768px) {
+  .new-card-container {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 0 15px;
+  }
+
+  .product-title {
+    font-size: 16px;
+  }
+
+  .product-price {
+    font-size: 18px;
+  }
+  .product-category {
+    width: 51%;
+  }
+
+  .action-btn {
+    width: 45px;
+    height: 45px;
+  }
+}
+
+@media (max-width: 480px) {
+  .shop-heading {
+    margin-left: -2rem;
+  }
+  .new-card-container {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+  }
+
+  .product-info {
+    padding: 15px;
+  }
+
+  .product-title {
+    font-size: 14px;
+  }
+
+  .product-price {
+    font-size: 16px;
+  }
+
+  .wishlist-btn {
+    width: 35px;
+    height: 35px;
+  }
+
+  .wishlist-btn i {
+    font-size: 16px;
+  }
+
+  .action-btn {
+    width: 40px;
+    height: 40px;
+  }
+
+  .action-btn i {
+    font-size: 18px;
+  }
+}
+@media (max-width: 440px) {
+  .product-category {
+    width: 56%;
+  }
+}
+@media (max-width: 390px) {
+  .shop-heading {
+    margin-left: -4rem;
+  }
+  .product-category {
+    width: 70%;
+  }
+}
+@media (max-width: 346px) {
+  .product-category {
+    width: 30%;
+  }
+}
+
+/* ===================================================
+   REPLACE the .filter-bar and related classes
+   in your Allproducts.css with this block
+=================================================== */
+
+.filter-bar {
+  gap: 14px;
+  margin-top: 2.5rem;
+}
+
+/* Desktop: search left, dropdowns right */
+.filter-bar.products-page {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: nowrap;
+}
+
+/* Dropdowns grouped right */
+.filter-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+/* ── Search bar ── */
+.shop-search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+.shop-search-icon {
+  position: absolute;
+  left: 0.75rem;
+  color: #bbb;
+  font-size: 0.8rem;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.shop-search-input {
+  padding: 16px 30px;
+  border: 1.5px solid #e5e5e5;
+  border-radius: 8px;
+  font-size: 0.86rem;
+  font-family: inherit;
+  outline: none;
+  background: #fff;
+  color: #333;
+  width: 220px;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s,
+    width 0.25s;
+  box-sizing: border-box;
+}
+
+.shop-search-input:focus {
+  border-color: #d4358c;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(212, 53, 140, 0.08);
+  width: 260px;
+}
+
+.shop-search-input::placeholder {
+  color: #ccc;
+}
+
+.shop-search-clear {
+  position: absolute;
+  right: 0.6rem;
+  background: none;
+  border: none;
+  color: #bbb;
+  font-size: 0.72rem;
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: 4px;
+  transition: color 0.15s;
+  line-height: 1;
+}
+
+.shop-search-clear:hover {
+  color: #d4358c;
+}
+
+/* ── Tablet: search full width top, dropdowns below right ── */
+@media (max-width: 768px) {
+  .filter-bar.products-page {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.6rem;
+    padding: 0 1rem;
+  }
+
+  .shop-search-wrap {
+    width: 100%;
+  }
+
+  .shop-search-input,
+  .shop-search-input:focus {
+    width: 100%;
+  }
+
+  /* Dropdowns go to RIGHT on second row */
+  .filter-bar-right {
+    justify-content: flex-end;
+    width: 100%;
+  }
+}
+@media (max-width: 490px) {
+  .filter-bar-right {
+    justify-content: flex-end;
+    width: 100%;
+
+    /*
+      clamp(min, preferred, max)
+      
+      At 490px  → margin-left ≈ 0px
+      At 414px  → margin-left ≈ ~38px   
+      At 360px  → margin-left ≈ ~65px
+      At 320px  → margin-left ≈ ~85px
+ 
+      Formula: as viewport shrinks, margin grows.
+      (490px - 100vw) * 0.55  → gives ~1px per ~2px of viewport reduction
+    */
+    margin-left: clamp(0px, calc((490px - 100vw) * 0.55), 120px);
+  }
+
+  .shop-search-wrap {
+    width: 105%;
+  }
+}
+/* @media (max-width: 300px) {
+  .filter-bar-right {
+    justify-content: flex-end;
+    width: 100%;
+  }
+  .shop-search-wrap {
+    width: 105%;
+  }
+} */

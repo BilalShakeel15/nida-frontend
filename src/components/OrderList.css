@@ -1,0 +1,227 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600&display=swap');
+
+.ol-page {
+  padding: 2rem 2.5rem 4rem;
+  background: #fdf2f4;
+  min-height: 100vh;
+  font-family: 'DM Sans', sans-serif;
+  margin-top: 56px;
+}
+
+.ol-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.ol-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.9rem;
+  color: #1a1a2e;
+  margin: 0;
+}
+.ol-subtitle {
+  color: #aaa;
+  font-size: 0.88rem;
+  margin: 0.2rem 0 0;
+}
+
+.ol-search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.ol-search-icon {
+  position: absolute;
+  left: 12px;
+  font-size: 0.9rem;
+}
+.ol-search {
+  padding: 0.55rem 1rem 0.55rem 2.4rem;
+  border: 1.5px solid #ffc3c3;
+  border-radius: 50px;
+  font-size: 0.88rem;
+  width: 300px;
+  font-family: 'DM Sans', sans-serif;
+  outline: none;
+  background: #fff;
+  transition: border-color 0.2s;
+}
+.ol-search:focus {
+  border-color: #d4358c;
+}
+
+/* Status Summary */
+.ol-summary {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+.ol-summary-card {
+  flex: 1;
+  min-width: 120px;
+  border-radius: 12px;
+  padding: 0.85rem 1.2rem;
+  border: 1.5px solid;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.ol-summary-count {
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+.ol-summary-label {
+  font-size: 0.75rem;
+  color: #888;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Table */
+.ol-table-wrap {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  overflow-x: auto;
+}
+.ol-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+.ol-table thead tr {
+  background: #fdf2f4;
+  border-bottom: 2px solid #ffe4ec;
+}
+.ol-table th {
+  padding: 0.85rem 1rem;
+  text-align: left;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #aaa;
+  font-weight: 700;
+}
+.ol-row {
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.ol-row:hover {
+  background: #fff8fa;
+}
+.ol-table td {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid #fafafa;
+  vertical-align: middle;
+  color: #444;
+}
+.ol-table tr:last-child td {
+  border-bottom: none;
+}
+
+.ol-num {
+  font-weight: 700;
+  color: #d4358c;
+}
+.ol-cust-name {
+  font-weight: 600;
+  color: #1a1a2e;
+  font-size: 0.9rem;
+}
+.ol-cust-email {
+  font-size: 0.75rem;
+  color: #aaa;
+}
+.ol-address {
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ol-badge {
+  display: inline-block;
+  padding: 3px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.ol-btns {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+.ol-btn {
+  padding: 5px 12px;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'DM Sans', sans-serif;
+}
+.ol-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.ol-btn--confirm {
+  background: #fef3c7;
+  color: #d97706;
+}
+.ol-btn--confirm:hover:not(:disabled) {
+  background: #d97706;
+  color: #fff;
+}
+.ol-btn--ship {
+  background: #eff6ff;
+  color: #3b82f6;
+}
+.ol-btn--ship:hover:not(:disabled) {
+  background: #3b82f6;
+  color: #fff;
+}
+.ol-btn--complete {
+  background: #ecfdf5;
+  color: #10b981;
+}
+.ol-btn--complete:hover:not(:disabled) {
+  background: #10b981;
+  color: #fff;
+}
+.ol-delivered {
+  font-size: 0.82rem;
+  color: #10b981;
+  font-weight: 600;
+}
+
+.ol-empty {
+  text-align: center;
+  color: #bbb;
+  padding: 3rem;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 768px) {
+  .ol-page {
+    padding: 1.25rem 1rem 3rem;
+  }
+  .ol-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .ol-search {
+    width: 100%;
+  }
+  .ol-address {
+    display: none;
+  }
+}

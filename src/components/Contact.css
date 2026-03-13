@@ -1,0 +1,581 @@
+/* ===================================================
+   CONTACT PAGE — Luxury Editorial Aesthetic
+   Nida Handmade Cards
+=================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+
+/* ── CSS VARIABLES ── */
+:root {
+  --pink: #d4358c;
+  --pink-light: #f7c5e3;
+  --pink-pale: #fdf0f8;
+  --ink: #1a1a1a;
+  --muted: #888;
+  --line: #ebebeb;
+  --white: #ffffff;
+  --cream: #fdf8f5;
+}
+
+/* ── PAGE SHELL ── */
+.contact-page {
+  background: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ════════════════════════════════
+   HERO — full-bleed split design
+════════════════════════════════ */
+.contact-hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 380px;
+  overflow: hidden;
+}
+
+/* Left half — deep pink */
+.contact-hero-left {
+  background: var(--pink);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4rem 3.5rem 4rem 5vw;
+  position: relative;
+  z-index: 1;
+}
+
+/* Decorative ring */
+.contact-hero-left::before {
+  content: '';
+  position: absolute;
+  top: -80px;
+  left: -80px;
+  width: 300px;
+  height: 300px;
+  border: 60px solid rgba(255, 255, 255, 0.06);
+  border-radius: 50%;
+}
+
+.contact-hero-left::after {
+  content: '';
+  position: absolute;
+  bottom: -50px;
+  right: -50px;
+  width: 180px;
+  height: 180px;
+  border: 40px solid rgba(255, 255, 255, 0.07);
+  border-radius: 50%;
+}
+
+.hero-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.65);
+  margin-bottom: 1rem;
+}
+
+.contact-hero-left h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.8rem, 4vw, 4.5rem);
+  font-weight: 300;
+  color: #fff;
+  line-height: 1.05;
+  margin: 0 0 1.25rem;
+  letter-spacing: -0.01em;
+}
+
+.contact-hero-left h1 em {
+  font-style: italic;
+  font-weight: 300;
+}
+
+.contact-hero-left p {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.7;
+  max-width: 320px;
+  font-weight: 300;
+}
+
+/* Right half — cream with pattern */
+.contact-hero-right {
+  background: var(--cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Decorative dot grid */
+.contact-hero-right::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(
+    circle,
+    rgba(212, 53, 140, 0.12) 1.5px,
+    transparent 1.5px
+  );
+  background-size: 28px 28px;
+}
+
+.hero-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  position: relative;
+  z-index: 1;
+  padding: 2rem;
+}
+
+.hero-stat {
+  text-align: center;
+}
+
+.hero-stat-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3rem;
+  font-weight: 600;
+  color: var(--pink);
+  line-height: 1;
+  display: block;
+}
+
+.hero-stat-label {
+  font-size: 0.78rem;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: block;
+  margin-top: 0.25rem;
+}
+
+.hero-stat-divider {
+  width: 1px;
+  height: 40px;
+  background: var(--line);
+  margin: 0 auto;
+}
+
+/* ════════════════════════════════
+   MAIN CONTENT
+════════════════════════════════ */
+.contact-main {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 0;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 4vw 5rem;
+}
+
+/* ── LEFT: Info Panel ── */
+.contact-info-panel {
+  padding-right: 3.5rem;
+  border-right: 1px solid var(--line);
+}
+
+.info-section-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--pink);
+  font-weight: 500;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.info-section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--pink-light);
+}
+
+/* Contact rows */
+.contact-detail-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--line);
+  cursor: default;
+  transition: transform 0.2s ease;
+}
+
+.contact-detail-row:first-of-type {
+  border-top: 1px solid var(--line);
+}
+
+.contact-detail-row:hover {
+  transform: translateX(4px);
+}
+
+.detail-icon-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--pink-pale);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+
+.contact-detail-row:hover .detail-icon-wrap {
+  background: var(--pink-light);
+}
+
+.detail-icon-wrap i {
+  color: var(--pink);
+  font-size: 0.9rem;
+}
+
+.detail-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 500;
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.detail-value {
+  font-size: 0.95rem;
+  color: var(--ink);
+  font-weight: 400;
+  display: block;
+}
+
+/* Decorative quote */
+.contact-quote {
+  margin-top: 3rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, var(--pink-pale), #fff5fb);
+  border-radius: 16px;
+  border-left: 3px solid var(--pink);
+  position: relative;
+}
+
+.contact-quote::before {
+  content: '\201C';
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 5rem;
+  color: var(--pink-light);
+  position: absolute;
+  top: -10px;
+  left: 12px;
+  line-height: 1;
+}
+
+.contact-quote p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  font-style: italic;
+  color: var(--ink);
+  line-height: 1.6;
+  font-weight: 400;
+  position: relative;
+  z-index: 1;
+}
+
+.contact-quote cite {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--pink);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-top: 0.75rem;
+  font-style: normal;
+  font-weight: 500;
+}
+
+/* ── RIGHT: Form Panel ── */
+.contact-form-panel {
+  padding-left: 3.5rem;
+}
+
+.form-panel-header {
+  margin-bottom: 2.5rem;
+}
+
+.form-panel-header h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.4rem;
+  font-weight: 400;
+  color: var(--ink);
+  margin: 0 0 0.5rem;
+  line-height: 1.2;
+}
+
+.form-panel-header p {
+  font-size: 0.88rem;
+  color: var(--muted);
+  font-weight: 300;
+}
+
+/* Form fields */
+.cf-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.cf-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.cf-field label {
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.cf-field input,
+.cf-field textarea {
+  width: 100%;
+  padding: 1rem 1.1rem;
+  font-size: 0.92rem;
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  outline: none;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+  background: var(--cream);
+  color: var(--ink);
+  box-sizing: border-box;
+}
+
+.cf-field input:focus,
+.cf-field textarea:focus {
+  border-color: var(--pink);
+  background: var(--white);
+  box-shadow: 0 0 0 4px rgba(212, 53, 140, 0.07);
+}
+
+.cf-field input::placeholder,
+.cf-field textarea::placeholder {
+  color: #ccc;
+  font-weight: 300;
+}
+
+.cf-field textarea {
+  min-height: 140px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+/* 2-col row */
+.cf-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+/* Checkbox */
+.cf-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: -0.25rem;
+}
+
+.cf-checkbox input[type='checkbox'] {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--line);
+  border-radius: 5px;
+  cursor: pointer;
+  flex-shrink: 0;
+  position: relative;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
+}
+
+.cf-checkbox input[type='checkbox']:checked {
+  background: var(--pink);
+  border-color: var(--pink);
+}
+
+.cf-checkbox input[type='checkbox']:checked::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 5px;
+  height: 9px;
+  border: 2px solid white;
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg);
+}
+
+.cf-checkbox label {
+  font-size: 0.84rem;
+  color: var(--muted);
+  cursor: pointer;
+  font-weight: 300;
+}
+
+/* Submit button */
+.cf-submit {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.send-btn {
+  /* display: inline-flex; */
+  width: 40%;
+  align-items: center;
+  gap: 0.6rem;
+  background: var(--pink);
+  color: #fff;
+  border: none;
+  padding: 1rem 2.25rem;
+  border-radius: 50px;
+  font-size: 0.88rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition:
+    background 0.25s,
+    transform 0.15s,
+    box-shadow 0.25s;
+  box-shadow: 0 4px 20px rgba(212, 53, 140, 0.25);
+}
+
+.send-btn:hover {
+  background: #bb2d7b;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(212, 53, 140, 0.35);
+}
+
+.send-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(212, 53, 140, 0.2);
+}
+
+.send-btn i {
+  font-size: 0.85rem;
+  transition: transform 0.2s;
+  margin-left: 6px;
+}
+
+.send-btn:hover i {
+  transform: translateX(3px) translateY(-2px);
+}
+
+.submit-note {
+  font-size: 0.78rem;
+  color: #bbb;
+  font-weight: 300;
+}
+
+.submit-note i {
+  color: var(--pink);
+  margin-right: 0.3rem;
+}
+
+/* ════════════════════════════════
+   RESPONSIVE
+════════════════════════════════ */
+@media (max-width: 960px) {
+  .contact-hero {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .contact-hero-left {
+    padding: 3rem 2rem;
+  }
+
+  .contact-hero-right {
+    display: none;
+  }
+
+  .contact-main {
+    grid-template-columns: 1fr;
+    padding: 2.5rem 1.5rem 3rem;
+    gap: 2.5rem;
+  }
+
+  .contact-info-panel {
+    padding-right: 0;
+    border-right: none;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 2.5rem;
+  }
+
+  .contact-form-panel {
+    padding-left: 0;
+  }
+
+  /* Info cards in 2 cols on tablet */
+  .contact-detail-row {
+    display: inline-flex;
+    width: calc(50% - 0.5rem);
+    vertical-align: top;
+  }
+
+  .contact-detail-row:first-of-type,
+  .contact-detail-row + .contact-detail-row {
+    border-top: 1px solid var(--line);
+  }
+}
+
+@media (max-width: 600px) {
+  .contact-hero-left {
+    padding: 2.5rem 1.25rem;
+  }
+
+  .contact-hero-left h1 {
+    font-size: 2.6rem;
+  }
+
+  .contact-detail-row {
+    width: 100%;
+    display: flex;
+  }
+
+  .cf-row {
+    grid-template-columns: 1fr;
+  }
+
+  .cf-submit {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .send-btn {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .contact-quote {
+    display: none;
+  }
+}

@@ -1,0 +1,153 @@
+.shop-sidebar {
+  width: 240px;
+  flex-shrink: 0;
+  font-family:
+    'DM Sans',
+    -apple-system,
+    sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.shop-sidebar__section {
+  background: #fff;
+  border-radius: 14px;
+  padding: 1.1rem 1.1rem;
+  border: 1.5px solid #ffe4ec;
+  margin-bottom: 1rem;
+}
+
+.shop-sidebar__heading {
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #1a1a2e;
+  margin: 0 0 0.85rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.shop-sidebar__heading-icon {
+  font-size: 0.9rem;
+}
+
+/* Search input */
+.shop-sidebar__search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.shop-sidebar__search {
+  width: 100%;
+  padding: 0.6rem 2.2rem 0.6rem 0.85rem;
+  border: 1.5px solid #f0c0d4;
+  border-radius: 9px;
+  font-size: 0.88rem;
+  font-family: inherit;
+  outline: none;
+  background: #fff;
+  color: #1a1a2e;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+  box-sizing: border-box;
+}
+.shop-sidebar__search:focus {
+  border-color: #d4358c;
+  box-shadow: 0 0 0 3px rgba(212, 53, 140, 0.08);
+}
+.shop-sidebar__search::placeholder {
+  color: #bbb;
+}
+.shop-sidebar__search-clear {
+  position: absolute;
+  right: 8px;
+  background: none;
+  border: none;
+  font-size: 0.72rem;
+  color: #bbb;
+  cursor: pointer;
+  padding: 3px 5px;
+  border-radius: 4px;
+  transition: all 0.15s;
+  line-height: 1;
+}
+.shop-sidebar__search-clear:hover {
+  background: #ffe4ec;
+  color: #d4358c;
+}
+
+.shop-sidebar__result-hint {
+  margin: 0.45rem 0 0;
+  font-size: 0.78rem;
+  color: #d4358c;
+  font-weight: 600;
+}
+
+/* Sort radio options */
+.shop-sidebar__sort-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+.shop-sidebar__radio-label {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.86rem;
+  color: #555;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+.shop-sidebar__radio-label:hover {
+  color: #d4358c;
+}
+.shop-sidebar__radio {
+  display: none;
+}
+.shop-sidebar__radio-custom {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+  flex-shrink: 0;
+  transition: all 0.18s;
+  position: relative;
+  background: #fff;
+}
+.shop-sidebar__radio-custom.checked {
+  border-color: #d4358c;
+  background: #d4358c;
+  box-shadow: inset 0 0 0 3px #fff;
+}
+
+/* Footer */
+.shop-sidebar__footer {
+  font-size: 0.8rem;
+  color: #aaa;
+  padding: 0.25rem 0.25rem;
+  text-align: center;
+}
+.shop-sidebar__footer strong {
+  color: #d4358c;
+}
+
+/* ─── Mobile: becomes top bar ─── */
+@media (max-width: 768px) {
+  .shop-sidebar {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  .shop-sidebar__section {
+    flex: 1;
+    min-width: 200px;
+    margin-bottom: 0;
+  }
+  .shop-sidebar__footer {
+    display: none;
+  }
+}
