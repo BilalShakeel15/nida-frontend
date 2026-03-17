@@ -4,6 +4,7 @@
   margin: auto;
   padding: 20px;
   margin-top: 8rem;
+  overflow-x: hidden; /* FIX: no horizontal scroll */
 }
 
 .pi-main {
@@ -16,6 +17,7 @@
 /* Left Side - Gallery */
 .pi-gallery {
   position: relative;
+  min-width: 0; /* FIX: prevents grid blowout */
 }
 
 .pi-main-img-wrapper {
@@ -31,25 +33,26 @@
   display: block;
   border-radius: 20px;
   height: 550px;
+  object-fit: cover; /* FIX: image stays contained */
 }
 
 /* Bestseller Badge */
 .pi-bestseller-badge {
   position: absolute;
   top: 4%;
-  /* right: 20px; */
-  left: 40%;
+  left: 50%;
+  transform: translateX(-50%);
   background: linear-gradient(135deg, #ff9a3d, #ff6b35);
   color: white;
   padding: 8px 20px;
   border-radius: 25px;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
-  /* text-transform: uppercase; */
   letter-spacing: 1.5px;
   z-index: 10;
   box-shadow: 0 4px 12px rgba(255, 107, 53, 0.4);
   font-family: 'Inter';
+  white-space: nowrap;
 }
 
 /* Wishlist Heart */
@@ -79,13 +82,11 @@
 .pi-wishlist-btn:hover i {
   color: white;
 }
-
 .pi-wishlist-btn i {
   font-size: 20px;
   color: #333;
   transition: color 0.3s ease;
 }
-
 .pi-wishlist-btn i.fas.fa-heart {
   color: #ff69b4;
 }
@@ -94,7 +95,7 @@
 .pi-thumbs {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
+  gap: 10px;
   margin-top: 16px;
 }
 
@@ -105,9 +106,9 @@
   border: 3px solid transparent;
   transition: all 0.3s ease;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  aspect-ratio: 1;
-  width: 215px;
-  height: 215px;
+  aspect-ratio: 1 / 1; /* FIX: square without fixed px */
+  width: 100%; /* FIX: was 215px — caused overflow */
+  height: auto;
 }
 
 .pi-thumb-wrapper:hover,
@@ -127,20 +128,20 @@
 /* Right Side - Details */
 .pi-details {
   padding: 10px 0;
+  min-width: 0; /* FIX: prevents grid blowout */
 }
 
 .pi-tag {
   color: #e60076;
   font-weight: 500;
-  font-size: 20px;
-  /* text-transform: uppercase; */
+  font-size: 18px;
   letter-spacing: 1px;
   margin-bottom: 12px;
   display: inline-block;
   background-color: #fce7f3;
   border-radius: 50px;
   text-align: center;
-  width: 15rem;
+  padding: 4px 20px;
   font-family: 'Inter';
 }
 
@@ -151,32 +152,6 @@
   color: #1a1a1a;
   line-height: 1.2;
   font-family: 'Inter';
-}
-
-.pi-rating {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 16px;
-}
-
-.pi-stars {
-  color: #ffc107;
-  font-size: 18px;
-  display: flex;
-  gap: 2px;
-}
-
-.pi-rating-text {
-  font-weight: 700;
-  color: #1a1a1a;
-  font-size: 16px;
-  margin-left: 4px;
-}
-
-.pi-rating-count {
-  color: #888;
-  font-size: 14px;
 }
 
 .pi-desc {
@@ -253,7 +228,7 @@
   font-weight: 700;
   margin: 24px 0 12px;
   color: #1a1a1a;
-  font-family: 'INTER';
+  font-family: 'Inter';
 }
 
 .pi-highlights {
@@ -288,6 +263,7 @@
   flex-shrink: 0;
 }
 
+/* Quantity */
 .pi-qty-row {
   display: flex;
   align-items: center;
@@ -324,14 +300,6 @@
   background: #ffe6ef;
   color: #ff4f93;
   font-weight: bold;
-}
-
-.pi-pill-btn.plus {
-  background: #ffe6ef;
-}
-
-.pi-pill-btn.minus {
-  background: #ffe6ef;
 }
 
 .pi-pill-btn:hover {
@@ -375,7 +343,7 @@
   padding: 16px 24px;
   border-radius: 12px;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 18px;
   cursor: pointer;
   transition: all 0.3s ease;
   display: flex;
@@ -384,8 +352,6 @@
   gap: 8px;
   box-shadow: 0 6px 22px #fb64b680;
   height: 75px;
-  font-size: 18px;
-  font-weight: 700;
   font-family: 'Inter';
 }
 
@@ -405,28 +371,23 @@
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
-  font-size: 18px;
+  flex-shrink: 0;
 }
 
 .pi-wishlist-btn-bottom:hover {
   background: #ff2f6e;
 }
-
 .pi-wishlist-btn-bottom:hover i {
   color: white;
 }
-
 .pi-wishlist-btn-bottom i {
   font-size: 20px;
   color: #ff2f6e;
   transition: color 0.3s ease;
 }
-
 .pi-wishlist-btn-bottom i.fas.fa-heart {
   color: #ff2f6e;
-  font-size: 18px;
 }
-
 .pi-wishlist-btn-bottom:hover i.fas.fa-heart {
   color: white;
 }
@@ -439,12 +400,10 @@
   padding: 16px 24px;
   border-radius: 12px;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 18px;
   cursor: pointer;
   transition: all 0.3s ease;
   height: 75px;
-  font-size: 18px;
-  font-weight: 700;
   font-family: 'Inter';
 }
 
@@ -460,6 +419,7 @@
   margin-top: 24px;
   padding-top: 24px;
   border-top: 1px solid #e0e0e0;
+  flex-wrap: wrap; /* FIX: wrap on small screens */
 }
 
 .pi-badge-item {
@@ -473,16 +433,9 @@
 }
 
 .pi-badge-item i {
-  width: 22px;
-  height: 22px;
-  /* background: #dcfce7; */
-  /* color: #00a63e; */
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   font-size: 25px;
 }
+
 .secure-payment {
   color: #00a63e;
 }
@@ -503,12 +456,11 @@
 
 .pi-feature-card {
   background: white;
-  /* border: 2px solid #f0f0f0; */
   border-radius: 12px;
   padding: 20px;
   text-align: center;
   transition: all 0.3s ease;
-  height: 9rem;
+  min-height: 9rem;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
 }
 
@@ -525,7 +477,7 @@
 }
 
 .pi-feature-title {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
   color: #333;
   margin-bottom: 6px;
@@ -533,13 +485,13 @@
 }
 
 .pi-feature-desc {
-  font-size: 14px;
+  font-size: 13px;
   color: #6a7282;
   font-family: 'Inter';
   font-weight: 400;
 }
 
-/* Similar Products Section */
+/* Similar Products */
 .pi-similar-title {
   margin: 60px 0 24px;
   font-size: 28px;
@@ -547,17 +499,22 @@
   color: #1a1a1a;
 }
 
-/* Responsive Design */
+/* ===========================
+   TABLET (max 1024px)
+=========================== */
 @media (max-width: 1024px) {
   .pi-main {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 32px;
+  }
+
+  .pi-main-img {
+    height: 420px;
   }
 
   .pi-title {
     font-size: 32px;
   }
-
   .pi-price {
     font-size: 36px;
   }
@@ -565,95 +522,160 @@
   .pi-features {
     grid-template-columns: repeat(3, 1fr);
   }
-
-  .pi-thumbs {
-    grid-template-columns: repeat(4, 1fr);
-  }
 }
 
+/* ===========================
+   MOBILE (max 768px)
+=========================== */
 @media (max-width: 768px) {
   .pi-wrapper {
     margin-top: 5rem;
-    padding: 15px;
+    padding: 12px;
   }
 
   .pi-main {
-    gap: 30px;
-  }
-
-  .pi-title {
-    font-size: 28px;
-  }
-
-  .pi-price {
-    font-size: 32px;
-  }
-
-  .pi-buttons {
-    flex-direction: column;
-  }
-
-  .pi-wishlist-btn-bottom {
-    width: 100%;
-  }
-
-  .pi-features {
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: 24px;
   }
 
-  .pi-badges {
-    flex-direction: column;
-    gap: 12px;
+  .pi-main-img {
+    height: 320px; /* FIX: was too tall on mobile */
   }
 
-  .pi-thumbs {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-@media (max-width: 480px) {
   .pi-title {
     font-size: 24px;
   }
-
   .pi-price {
     font-size: 28px;
   }
-
   .pi-old {
     font-size: 16px;
   }
 
   .pi-thumbs {
+    grid-template-columns: repeat(4, 1fr);
     gap: 8px;
+  }
+
+  .pi-buttons {
+    flex-direction: row; /* keep side by side */
+    gap: 10px;
+  }
+
+  .pi-cart-btn {
+    height: 60px;
+    font-size: 16px;
+  }
+  .pi-buy-btn {
+    height: 60px;
+    font-size: 16px;
+  }
+  .pi-wishlist-btn-bottom {
+    width: 60px;
+    height: 60px;
+  }
+
+  .pi-features {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .pi-feature-card {
+    padding: 14px 10px;
+    min-height: auto;
+  }
+
+  .pi-feature-card i {
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+  .pi-feature-title {
+    font-size: 13px;
+  }
+  .pi-feature-desc {
+    font-size: 11px;
+  }
+
+  .pi-badges {
+    gap: 12px;
+  }
+
+  .pi-badge-item {
+    font-size: 13px;
   }
 
   .pi-price-section {
     padding: 16px;
   }
 
-  .pi-cart-btn,
-  .pi-buy-btn {
-    padding: 14px 20px;
+  .pi-bestseller-badge {
+    font-size: 13px;
+    padding: 6px 14px;
+  }
+}
+
+/* ===========================
+   SMALL MOBILE (max 480px)
+=========================== */
+@media (max-width: 480px) {
+  .pi-wrapper {
+    padding: 10px;
+  }
+
+  .pi-main-img {
+    height: 260px;
+  }
+
+  .pi-title {
+    font-size: 20px;
+  }
+  .pi-price {
+    font-size: 24px;
+  }
+
+  .pi-tag {
+    font-size: 14px;
+    padding: 3px 14px;
+  }
+
+  .pi-desc {
     font-size: 15px;
   }
 
-  .pi-bestseller-badge {
-    padding: 6px 14px;
-    font-size: 11px;
-    top: 15px;
-    right: 15px;
+  .pi-highlights li {
+    font-size: 15px;
+  }
+  .pi-highlights-title {
+    font-size: 17px;
   }
 
-  .pi-wishlist-btn {
-    width: 40px;
-    height: 40px;
-    top: 15px;
-    left: 15px;
+  .pi-qty-text {
+    font-size: 15px;
+  }
+  .pi-total-text {
+    font-size: 14px;
   }
 
-  .pi-wishlist-btn i {
-    font-size: 18px;
+  .pi-cart-btn {
+    font-size: 14px;
+    height: 52px;
+  }
+  .pi-buy-btn {
+    font-size: 14px;
+    height: 52px;
+  }
+  .pi-wishlist-btn-bottom {
+    width: 52px;
+    height: 52px;
+  }
+
+  .pi-features {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .pi-similar-title {
+    font-size: 22px;
+    margin: 40px 0 16px;
   }
 }
