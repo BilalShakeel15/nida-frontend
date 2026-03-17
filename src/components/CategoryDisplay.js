@@ -11,18 +11,25 @@ const CategoryDisplay = () => {
 
     useEffect(() => {
         const fetchCategories = async () => {
-            try {
-                const res = await fetch(`${API}/api/admin/getcategory`);
-                const data = await res.json();
-                console.log(data);
-
-                setCategories(data);
-            } catch (err) {
-                console.error('Error fetching categories:', err);
+            const cached = sessionStorage.getItem('categoriesData');
+            if (cached) {
+                setCategories(JSON.parse(cached));
+            } else {
+                try {
+                    const res = await fetch(`${API}/api/admin/getcategory`);
+                    const data = await res.json();
+                    setCategories(data);
+                    sessionStorage.setItem('categoriesData', JSON.stringify(data));
+                } catch (err) {
+                    console.error('Error fetching categories:', err);
+                }
             }
         };
+
         fetchCategories();
-        Allproducts(); // fetch all products for counting
+        if (products.length === 0) {
+            Allproducts();
+        }
     }, []);
 
     // count products per category
