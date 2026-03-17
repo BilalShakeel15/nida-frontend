@@ -1073,6 +1073,9 @@ body {
     position: relative;
     bottom: 2rem;
   }
+  .footer-cta {
+    bottom: 0;
+  }
 
   .timeline {
     flex-wrap: nowrap;
@@ -1717,6 +1720,7 @@ body {
 
 /* Bottom Bar */
 .footer-bottom {
+  display: flex;
   margin-top: 2rem;
   padding: 1rem 0; /* top & bottom padding */
   font-size: 18px;
@@ -1746,7 +1750,7 @@ body {
     margin-left: 0rem;
   }
   .footer-logo h3 {
-    font-size: 42px;
+    font-size: 34px;
   }
   .footer-left p {
     font-size: 18px;
