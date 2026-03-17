@@ -295,7 +295,7 @@
 
 @media (max-width: 480px) {
   .shop-heading {
-    margin-left: -2rem;
+    /* margin-left: -2rem; */
   }
   .new-card-container {
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -339,7 +339,7 @@
 }
 @media (max-width: 390px) {
   .shop-heading {
-    margin-left: -4rem;
+    /* margin-left: -4rem; */
   }
   .product-category {
     width: 70%;
