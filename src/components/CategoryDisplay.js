@@ -14,6 +14,8 @@ const CategoryDisplay = () => {
             try {
                 const res = await fetch(`${API}/api/admin/getcategory`);
                 const data = await res.json();
+                console.log(data);
+
                 setCategories(data);
             } catch (err) {
                 console.error('Error fetching categories:', err);
