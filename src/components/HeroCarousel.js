@@ -10,10 +10,20 @@ const HeroCarousel = () => {
 
     useEffect(() => {
         const fetchBanner = async () => {
+            // Pehle sessionStorage check karo
+            const cached = sessionStorage.getItem('bannerData');
+            if (cached) {
+                setBanner(JSON.parse(cached));
+                return; // DB call nahi hogi
+            }
+
             try {
                 const res = await fetch(`${API}/api/admin/getbanner`);
                 const json = await res.json();
-                setBanner(json?.temp_banner || []);
+                const data = json?.temp_banner || [];
+                setBanner(data);
+                // Cache kar do
+                sessionStorage.setItem('bannerData', JSON.stringify(data));
             } catch (err) {
                 console.error("Banner fetch error:", err);
                 setBanner([]);
