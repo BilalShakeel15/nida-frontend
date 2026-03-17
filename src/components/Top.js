@@ -96,6 +96,19 @@ const Top = () => {
     }
     return () => { document.body.style.overflow = ''; };
   }, [menuOpen]);
+  const handleAboutClick = () => {
+    setMenuOpen(false);
+    if (window.location.pathname === '/') {
+      // Same page — sirf scroll karo
+      document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      // Doosra page — pehle home pe jao, phir scroll
+      navigate('/');
+      setTimeout(() => {
+        document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+      }, 400); // wait for page to load
+    }
+  };
 
   return (
     <>
@@ -109,7 +122,9 @@ const Top = () => {
                 {/* Left links */}
                 <ul className="navbar-nav d-flex gap-3">
                   <li className="nav-item"><Link className="nav-link" to="/">Home</Link></li>
-                  <li className="nav-item"><a className="nav-link" href="#about">About Us</a></li>
+                  <li className="nav-item">
+                    <span className="nav-link" style={{ cursor: 'pointer' }} onClick={() => handleAboutClick()}>About Us</span>
+                  </li>
                   <li className="nav-item"><Link className="nav-link" to="/categorydisplay">Shop</Link></li>
                   <li className="nav-item"><Link className="nav-link" to="/contact">Contact</Link></li>
                 </ul>
@@ -277,7 +292,7 @@ const Top = () => {
             {/* Nav links */}
             {[
               { label: 'Home', to: '/' },
-              { label: 'About Us', to: '/#about' },
+              // { label: 'About Us', to: '/#about' },
               { label: 'Shop', to: '/categorydisplay' },
               { label: 'Contact', to: '/contact' },
             ].map((item) => (
@@ -300,6 +315,24 @@ const Top = () => {
                 {item.label}
               </Link>
             ))}
+            {/* About Us — separate because it uses onClick scroll */}
+            <span
+              onClick={handleAboutClick}
+              style={{
+                textDecoration: 'none',
+                color: '#2e2e2e',
+                fontSize: '1.6rem',
+                fontFamily: 'Inter, sans-serif',
+                fontWeight: '600',
+                letterSpacing: '0.02em',
+                cursor: 'pointer',
+              }}
+              onMouseEnter={e => e.target.style.color = '#d4358c'}
+              onMouseLeave={e => e.target.style.color = '#2e2e2e'}
+            >
+              About Us
+            </span>
+
 
             {/* Auth buttons */}
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem', marginTop: '1rem' }}>
