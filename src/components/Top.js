@@ -15,41 +15,49 @@ const Top = () => {
   const navigate_to_shop = useNavigate();
   const [categories, setCategories] = useState([]);
   const [user, setUser] = useState(null);
+  const [menuOpen, setMenuOpen] = useState(false);
   const token = localStorage.getItem('token');
-
 
   const handleNavigation = (item) => {
     localStorage.setItem('item', item.name);
-
     navigate_to_shop('/shop');
+    setMenuOpen(false);
   }
 
   const check_logout = () => {
     localStorage.removeItem('admin');
     navigate('/');
+    setMenuOpen(false);
   }
 
   const user_logout = () => {
     localStorage.removeItem('token');
-    logout_wishlist()
+    logout_wishlist();
     setUser(null);
     navigate('/');
+    setMenuOpen(false);
   }
+
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
   };
+
   const searchitem = () => {
     navigate('/shop', { state: { searchTerm } });
+    setMenuOpen(false);
   }
+
+  // Close menu on route change
+  const handleLinkClick = () => {
+    setMenuOpen(false);
+  }
+
   useEffect(() => {
-    // Fetch categories from the database
     const fetchCategories = async () => {
       try {
         const response = await fetch(`${API}/api/admin/getcategory`, {
           method: 'GET',
-          headers: {
-            'Content-Type': 'application/json'
-          },
+          headers: { 'Content-Type': 'application/json' },
         });
         const json = await response.json();
         setCategories(json);
@@ -57,257 +65,287 @@ const Top = () => {
         console.error('Error fetching categories:', error);
       }
     };
-
     fetchCategories();
   }, []);
 
   useEffect(() => {
-    // Check if user is logged in
     if (token) {
       const checkUser = async () => {
         try {
           const response = await fetch(`${API}/api/auth/getuser`, {
-            headers: {
-              'auth-token': token
-            }
+            headers: { 'auth-token': token }
           });
           const data = await response.json();
-          if (data.success) {
-            setUser(data.user);
-          }
+          if (data.success) setUser(data.user);
         } catch (error) {
           console.error('Error checking user:', error);
           localStorage.removeItem('token');
         }
       };
       checkUser();
-      fetchWishlist()
-      // console.log("loggedin", token, wishlistCount);
-
+      fetchWishlist();
     }
   }, [token]);
 
+  // Prevent body scroll when menu is open
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [menuOpen]);
+
   return (
     <>
-      {!localStorage.getItem('admin') ? (<div className='fixed-top '>
-        {/* <div>
-          <header className="header">
-            <div className="header-content">
-              <div className="logo">
-                <img src={logo} alt="Nida Crafteria Logo" />
-                <div className='d-flex flex-column'>
-                  <h3 style={{ textAlign: "justify", fontFamily: "Amatic SC", fontWeight: "bolder" }}>NIDA</h3>
-                  <h3 style={{ fontFamily: "Amatic SC", fontWeight: "bolder" }}>CRAFTERIA</h3>
+      {!localStorage.getItem('admin') ? (
+        <div className='fixed-top'>
+
+          {/* ===== DESKTOP NAVBAR ===== */}
+          <nav className="navbar navbar-expand-lg navbar-top d-none d-lg-flex" style={{ backgroundColor: "#FFC3C3" }}>
+            <div className="container-fluid">
+              <div className="collapse navbar-collapse justify-content-between show">
+                {/* Left links */}
+                <ul className="navbar-nav d-flex gap-3">
+                  <li className="nav-item"><Link className="nav-link" to="/">Home</Link></li>
+                  <li className="nav-item"><a className="nav-link" href="#about">About Us</a></li>
+                  <li className="nav-item"><Link className="nav-link" to="/categorydisplay">Shop</Link></li>
+                  <li className="nav-item"><Link className="nav-link" to="/contact">Contact</Link></li>
+                </ul>
+
+                {/* Center logo */}
+                <div className="mx-auto text-center">
+                  <Link to="/" className="navbar-brand d-flex align-items-center justify-content-center"
+                    style={{ fontFamily: "Amatic SC", fontWeight: "bold", fontSize: "28px" }}>
+                    <img src={logo} alt="Nida Logo" style={{ height: "62px" }} className="me-2" />
+                    NIDA HANDMADE CARDS
+                  </Link>
                 </div>
-                <div className='d-flex justify-content-center align-items-center mx-2'>
-                  <h4 style={{ fontFamily: "Dancing Script", color: "rgb(53 44 44)", fontSize: "1.5rem", marginBottom: "20px" }}>designer of beautiful moments.</h4>
-                </div>
-              </div>
-              <div className="right-section">
-                <div className="auth-buttons">
+
+                {/* Right icons */}
+                <ul className="navbar-nav d-flex align-items-center gap-3">
+                  <li className="nav-item icon-item">
+                    <Link to="/wishlist" className="icon-link">
+                      <img src={wishlistIcon} alt="Wishlist" />
+                      {wishlistCount > 0 && <span className="badge">{wishlistCount}</span>}
+                    </Link>
+                  </li>
+                  <li className="nav-item icon-item">
+                    <Link to="/shoppingcart" className="icon-link">
+                      <img src={cartIcon} alt="Cart" />
+                      {buy > 0 && <span className="badge">{buy}</span>}
+                    </Link>
+                  </li>
                   {!user ? (
                     <>
-                      <Link className=" " to="/login" role="button"><button className='login'>Login</button></Link>
-                      <Link className=" " to="/signup" role="button"><button className='signup'>Signup</button></Link>
+                      <li className="nav-item">
+                        <Link to="/login" className="nav-link">
+                          <button className="btn px-3 d-flex justify-content-center"
+                            style={{ width: "98px", height: "36px", fontSize: "16px", fontFamily: "Inter", backgroundColor: "#d4358c", color: "white", border: "2px solid #d4358c" }}>
+                            Sign In
+                          </button>
+                        </Link>
+                      </li>
+                      <li className="nav-item">
+                        <Link to="/signup" className="nav-link">
+                          <button className="btn px-3 d-flex justify-content-center"
+                            style={{ width: "98px", height: "36px", fontSize: "16px", fontFamily: "Inter", color: "black", border: "1px solid white" }}>
+                            Sign Up
+                          </button>
+                        </Link>
+                      </li>
                     </>
                   ) : (
-                    <div className="d-flex align-items-center">
-                      <span className="me-3 text-dark">Welcome, {user.name}</span>
-                      <Link className="me-2" to="/wishlist" role="button">
-                        <button className='btn btn-sm wishlist-btn' style={{ backgroundColor: '#ffc3c3', color: 'black', border: '2px solid #ffc3c3' }}>
-                          <i className="fas fa-heart"></i> Wishlist
-                        </button>
-                      </Link>
-                      <button className='btn btn-outline-danger btn-sm' style={{ color: 'black' }} onClick={user_logout}>Logout</button>
-                    </div>
+                    <li className="nav-item d-flex align-items-center">
+                      <span className="me-2">Welcome, {user.name}</span>
+                      <button className="btn btn-sm" onClick={user_logout}
+                        style={{ width: "98px", height: "35px", fontSize: "16px", fontFamily: "Inter", backgroundColor: "#b71c6c", color: "white", marginLeft: "0.5rem" }}>
+                        Logout
+                      </button>
+                    </li>
                   )}
-                </div>
-                <div className="cart">
-                  <Link className="text-reset me-3" to="/shoppingcart">
-                    <div className="icon-container" style={{ position: 'relative', display: 'inline-block' }}>
-                      <span><i className="fas fa-shopping-cart" style={{ fontSize: "x-large" }} ></i></span>
-                      <span className="badge rounded-pill badge-notification bg-danger" style={{ position: 'absolute', top: '-10px', right: '-10px' }}>{buy}</span>
-                    </div>
-                  </Link>
-                </div>
+                </ul>
               </div>
             </div>
-          </header>
+          </nav>
 
-        </div> */}
-        <nav className="navbar navbar-expand-lg navbar-top" style={{ backgroundColor: "#FFC3C3" }}>
-          <div className="container-fluid">
+          {/* ===== MOBILE NAVBAR ===== */}
+          <nav className="d-flex d-lg-none align-items-center justify-content-between px-3 py-2"
+            style={{ backgroundColor: "#FFC3C3", height: "56px" }}>
 
+            {/* Hamburger */}
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              style={{
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                padding: '4px',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '5px',
+                zIndex: 1100,
+              }}
+              aria-label="Toggle menu"
+            >
+              <span style={{
+                display: 'block', width: '24px', height: '2px',
+                backgroundColor: '#333',
+                transition: 'all 0.3s ease',
+                transform: menuOpen ? 'rotate(45deg) translate(5px, 5px)' : 'none'
+              }} />
+              <span style={{
+                display: 'block', width: '24px', height: '2px',
+                backgroundColor: '#333',
+                transition: 'all 0.3s ease',
+                opacity: menuOpen ? 0 : 1
+              }} />
+              <span style={{
+                display: 'block', width: '24px', height: '2px',
+                backgroundColor: '#333',
+                transition: 'all 0.3s ease',
+                transform: menuOpen ? 'rotate(-45deg) translate(5px, -5px)' : 'none'
+              }} />
+            </button>
 
+            {/* Mobile Logo */}
+            <Link to="/" onClick={handleLinkClick}
+              style={{ fontFamily: "Amatic SC", fontWeight: "bold", fontSize: "18px", textDecoration: "none", color: "#333", display: "flex", alignItems: "center" }}>
+              <img src={logo} alt="Nida Logo" style={{ height: "36px" }} className="me-2" />
+              NIDA HANDMADE CARDS
+            </Link>
 
-            {/* Mobile Logo + Hamburger */}
-            <div className="d-flex d-lg-none align-items-center w-100">
-              {/* Hamburger on left */}
-              <button
-                className="navbar-toggler me-2"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarNav"
-                aria-controls="navbarNav"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-              >
-                <span className="navbar-toggler-icon"></span>
-              </button>
-
-              {/* Logo + Title next to hamburger */}
-              <Link
-                to="/"
-                className="navbar-brand d-flex align-items-center"
-                style={{ fontFamily: "Amatic SC", fontWeight: "bold", fontSize: "20px" }}
-              >
-                <img
-                  src={logo}
-                  alt="Nida Logo"
-                  style={{ height: "38px" }}
-                  className="me-2"
-                />
-                NIDA HANDMADE CARDS
+            {/* Mobile cart icons */}
+            <div style={{ display: 'flex', gap: '14px', alignItems: 'center' }}>
+              <Link to="/wishlist" onClick={handleLinkClick} className="icon-link">
+                <img src={wishlistIcon} alt="Wishlist" />
+                {wishlistCount > 0 && <span className="badge">{wishlistCount}</span>}
+              </Link>
+              <Link to="/shoppingcart" onClick={handleLinkClick} className="icon-link">
+                <img src={cartIcon} alt="Cart" />
+                {buy > 0 && <span className="badge">{buy}</span>}
               </Link>
             </div>
+          </nav>
 
+          {/* ===== FULLSCREEN MOBILE MENU OVERLAY ===== */}
+          <div style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100vw',
+            height: '100vh',
+            backgroundColor: '#FFC3C3',
+            zIndex: 1050,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: '2rem',
+            transition: 'opacity 0.3s ease, transform 0.3s ease',
+            opacity: menuOpen ? 1 : 0,
+            transform: menuOpen ? 'translateY(0)' : 'translateY(-20px)',
+            pointerEvents: menuOpen ? 'all' : 'none',
+          }}>
 
-            {/* Collapsible Menu */}
-            <div className="collapse navbar-collapse justify-content-between" id="navbarNav">
-              {/* Left Section */}
-              <ul className="navbar-nav d-flex gap-3" style={{ fontFamily: "Inter", fontSize: "16px" }}>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/">Home</Link>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="#about">About Us</a>
-                </li>
-                <li className="nav-item dropdown">
-                  <Link className="nav-link" to="/categorydisplay">
-                    Shop
+            {/* Close button */}
+            {/* <button
+              onClick={() => setMenuOpen(false)}
+              style={{
+                position: 'absolute',
+                top: '18px',
+                right: '20px',
+                background: 'none',
+                border: 'none',
+                fontSize: '28px',
+                cursor: 'pointer',
+                color: '#333',
+                lineHeight: 1,
+              }}
+            >
+              ✕
+            </button> */}
+
+            {/* Logo inside overlay */}
+            <Link to="/" onClick={handleLinkClick}
+              style={{ fontFamily: "Amatic SC", fontWeight: "bold", fontSize: "26px", textDecoration: "none", color: "#333", display: "flex", alignItems: "center", marginBottom: "1rem" }}>
+              <img src={logo} alt="Nida Logo" style={{ height: "48px" }} className="me-2" />
+              NIDA HANDMADE CARDS
+            </Link>
+
+            {/* Nav links */}
+            {[
+              { label: 'Home', to: '/' },
+              { label: 'About Us', to: '/#about' },
+              { label: 'Shop', to: '/categorydisplay' },
+              { label: 'Contact', to: '/contact' },
+            ].map((item) => (
+              <Link
+                key={item.label}
+                to={item.to}
+                onClick={handleLinkClick}
+                style={{
+                  textDecoration: 'none',
+                  color: '#2e2e2e',
+                  fontSize: '1.6rem',
+                  fontFamily: 'Inter, sans-serif',
+                  fontWeight: '600',
+                  letterSpacing: '0.02em',
+                  transition: 'color 0.2s ease',
+                }}
+                onMouseEnter={e => e.target.style.color = '#d4358c'}
+                onMouseLeave={e => e.target.style.color = '#2e2e2e'}
+              >
+                {item.label}
+              </Link>
+            ))}
+
+            {/* Auth buttons */}
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem', marginTop: '1rem' }}>
+              {!user ? (
+                <>
+                  <Link to="/login" onClick={handleLinkClick}>
+                    <button style={{
+                      width: '160px', height: '44px', fontSize: '16px',
+                      fontFamily: 'Inter', backgroundColor: '#d4358c',
+                      color: 'white', border: 'none', borderRadius: '8px',
+                      cursor: 'pointer'
+                    }}>
+                      Sign In
+                    </button>
                   </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/contact">Contact</Link>
-                </li>
-              </ul>
-              {/* Desktop Center Logo */}
-              <div className="mx-auto d-none d-lg-block text-center">
-                <Link to="/" className="navbar-brand d-flex align-items-center justify-content-center"
-                  style={{ fontFamily: "Amatic SC", fontWeight: "bold", fontSize: "28px" }}>
-                  <img src={logo} alt="Nida Logo" style={{ height: "62px" }} className="me-2" />
-                  NIDA HANDMADE CARDS
-                </Link>
-              </div>
-
-              {/* Right Section */}
-              <ul className="navbar-nav d-flex align-items-center gap-3">
-                <li className="nav-item icon-item">
-                  <Link to="/wishlist" className="icon-link">
-                    <img src={wishlistIcon} alt="Wishlist" />
-                    {wishlistCount > 0 && <span className="badge">{wishlistCount}</span>}
+                  <Link to="/signup" onClick={handleLinkClick}>
+                    <button style={{
+                      width: '160px', height: '44px', fontSize: '16px',
+                      fontFamily: 'Inter', backgroundColor: '#FFC3C3',
+                      color: '#333', border: '1px solid white', borderRadius: '8px',
+                      cursor: 'pointer'
+                    }}>
+                      Sign Up
+                    </button>
                   </Link>
-                </li>
-
-                <li className="nav-item icon-item">
-                  <Link to="/shoppingcart" className="icon-link">
-                    <img src={cartIcon} alt="Cart" />
-                    {buy > 0 && <span className="badge">{buy}</span>}
-                  </Link>
-                </li>
-
-                {!user ? (
-                  <>
-                    <li className="nav-item">
-                      <Link to="/login" className="nav-link">
-                        <button className="btn btn-light px-3 d-flex justify-content-center" style={{ width: "98px", height: "36px", fontSize: "16px", fontFamily: "Inter", backgroundColor: "#d4358c", color: "white", border: "2px solid #d4358c" }}>
-                          Sign In
-                        </button>
-                      </Link>
-                    </li>
-                    <li className="nav-item">
-                      <Link to="/signup" className="nav-link">
-                        <button className="btn btn-outline-light px-3 d-flex justify-content-center" style={{ width: "98px", height: "36px", fontSize: "16px", fontFamily: "Inter", color: "black" }}>
-                          Sign Up
-                        </button>
-                      </Link>
-                    </li>
-                  </>
-                ) : (
-                  <li className="nav-item d-flex align-items-center">
-                    <span className="me-2">Welcome, {user.name}</span>
-                    <button className="btn btn-outline-danger btn-sm" onClick={user_logout} style={{ width: "98px", height: "35px", fontSize: "16px", fontFamily: "Inter", backgroundColor: "#b71c6c", color: "white", marginLeft: "0.5rem" }}>Logout</button>
-                  </li>
-                )}
-              </ul>
+                </>
+              ) : (
+                <div style={{ textAlign: 'center' }}>
+                  <p style={{ fontFamily: 'Inter', fontSize: '1rem', marginBottom: '0.75rem' }}>
+                    Welcome, <strong>{user.name}</strong>
+                  </p>
+                  <button onClick={user_logout} style={{
+                    width: '160px', height: '44px', fontSize: '16px',
+                    fontFamily: 'Inter', backgroundColor: '#b71c6c',
+                    color: 'white', border: 'none', borderRadius: '8px',
+                    cursor: 'pointer'
+                  }}>
+                    Logout
+                  </button>
+                </div>
+              )}
             </div>
           </div>
-        </nav>
 
-
-
-
-      </div>
-      ) : (
-        // <nav className="navbar navbar-dark bg-dark fixed-top">
-        //   <div className="container-fluid">
-
-        //     <button className="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
-        //       <span className="navbar-toggler-icon"></span>
-        //     </button>
-        //     <div className="offcanvas offcanvas-start text-bg-dark" tabIndex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
-        //       <div className="offcanvas-header">
-        //         <h5 className="offcanvas-title" id="offcanvasDarkNavbarLabel">Dark offcanvashii</h5>
-        //         <button type="button" className="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        //       </div>
-        //       <div className="offcanvas-body">
-        //         <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
-        //           <li className="nav-item">
-        //             <Link className="nav-link active" aria-current="page" to="/adminhome">Home</Link>
-        //           </li>
-        //           <li className="nav-item">
-        //             <Link className="nav-link text-white" to="/orders">Orders</Link>
-        //           </li>
-        //           <li className="nav-item">
-        //             <Link className="nav-link" to="/confirmorders">Delivered Orders</Link>
-        //           </li>
-        //           <li className="nav-item">
-        //             <Link className="nav-link" to="/addproduct">Add Product</Link>
-        //           </li>
-        //           <li className="nav-item">
-        //             <Link className="nav-link" to="/addcategory">Add Category</Link>
-        //           </li>
-        //           <li className="nav-item">
-        //             <Link className="nav-link" to="/banner">Banner</Link>
-        //           </li>
-        //           <li className="nav-item">
-        //             <Link className="nav-link" to="/allproducts">All Products</Link>
-        //           </li>
-        //           {/* <li className="nav-item dropdown">
-        //             <Link className="nav-link dropdown-toggle" to="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-        //               Dropdown
-        //             </Link>
-        //             <ul className="dropdown-menu dropdown-menu-dark">
-        //               <li><Link className="dropdown-item" to="#">Action</Link></li>
-        //               <li><Link className="dropdown-item" to="#">Another action</Link></li>
-        //               <li>
-        //                 <hr className="dropdown-divider" />
-        //               </li>
-        //               <li><Link className="dropdown-item" to="#">Something else here</Link></li>
-        //             </ul>
-        //           </li> */}
-        //         </ul>
-        //         {/* <form className="d-flex mt-3" role="search">
-        //           <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-        //           <button className="btn btn-success" type="submit">Search</button>
-        //         </form> */}
-        //         <button className='btn btn-dark' onClick={check_logout}>Logout</button>
-        //       </div>
-        //     </div>
-        //     <Link className="navbar-brand" to="#">Welcome Nida</Link>
-        //   </div>
-        // </nav>
-        "")}
+        </div>
+      ) : ("")}
     </>
   )
 }
