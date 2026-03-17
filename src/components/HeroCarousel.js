@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef } from "react";
-// import "./HeroCarousel.css";
 
 const HeroCarousel = () => {
     const API = process.env.REACT_APP_API_URL;
@@ -40,54 +39,87 @@ const HeroCarousel = () => {
         if (intervalRef.current) clearInterval(intervalRef.current);
     };
 
-    const slides = banner.length ? banner : ["", "", "", ""];
+    // Always show 4 panels, cycling through all available slides
+    const getPanelIndex = (offset) => {
+        if (!banner.length) return null;
+        return (current + offset) % banner.length;
+    };
+
+    const fallbackPanel = (
+        <div style={{
+            width: '100%', height: '100%',
+            backgroundColor: '#ffc3c3',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+        }}>
+            <div style={{
+                width: 36, height: 36,
+                border: '3px solid #d4358c',
+                borderTopColor: 'transparent',
+                borderRadius: '50%',
+                animation: 'spin 0.8s linear infinite',
+            }} />
+        </div>
+    );
 
     return (
-        <section className="modern-hero">
-            <div className="hero-address">
-                <span>Pakistan’s 1st creative designer</span>
-            </div>
+        <>
+            <style>{`
+                @keyframes spin {
+                    to { transform: rotate(360deg); }
+                }
+            `}</style>
 
-            <div className="hero-text">
-                <h1>
-                    Beautifully handcrafted cards <br />
-                    and floral paper art designed for meaningful gifting.
+            <section className="modern-hero">
+                <div className="hero-address">
+                    <span>Pakistan's 1st creative designer</span>
+                </div>
 
-                </h1>
-            </div>
+                <div className="hero-text">
+                    <h1>
+                        Beautifully handcrafted cards <br />
+                        and floral paper art designed for meaningful gifting.
+                    </h1>
+                </div>
 
+                <div
+                    className="gallery-wall"
+                    onMouseEnter={stopAutoSlide}
+                    onMouseLeave={startAutoSlide}
+                >
+                    {[0, 1, 2, 3].map((pos) => {
+                        const index = getPanelIndex(pos);
+                        const img = index !== null ? banner[index] : null;
 
-            <div
-                className="gallery-wall"
-                onMouseEnter={stopAutoSlide}
-                onMouseLeave={startAutoSlide}
-            >
-                {[0, 1, 2, 3].map((pos) => {
-                    const index = (current + pos) % slides.length;
-                    const img = slides[index];
+                        return (
+                            <div className={`gallery-panel panel-${pos + 1}`} key={pos}>
+                                {img ? (
+                                    <img
+                                        src={`${BASE_URL}${img}`}
+                                        alt={`gallery-${pos}`}
+                                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                    />
+                                ) : fallbackPanel}
+                            </div>
+                        );
+                    })}
+                </div>
 
-                    return (
-                        <div className={`gallery-panel panel-${pos + 1}`} key={pos}>
-                            {img ? (
-                                <img src={`${BASE_URL}${img}`} alt={`gallery-${pos}`} />
-                            ) : (
-                                <div className="fallback">Gallery {pos + 1}</div>
-                            )}
-                        </div>
-                    );
-                })}
-            </div>
-
-            <div className="carousel-dots">
-                {slides.map((_, i) => (
-                    <span
-                        key={i}
-                        className={`dot ${current === i ? "active" : ""}`}
-                        onClick={() => setCurrent(i)}
-                    />
-                ))}
-            </div>
-        </section>
+                <div className="carousel-dots">
+                    {banner.length > 0
+                        ? banner.map((_, i) => (
+                            <span
+                                key={i}
+                                className={`dot ${current === i ? "active" : ""}`}
+                                onClick={() => setCurrent(i)}
+                            />
+                        ))
+                        : [0, 1, 2, 3].map((i) => (
+                            <span key={i} className="dot" />
+                        ))
+                    }
+                </div>
+            </section>
+        </>
     );
 };
 

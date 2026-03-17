@@ -29,10 +29,14 @@ import CategoryDisplay from './components/CategoryDisplay'
 import Prefooter from './components/Prefooter'
 import ScrollToTop from './components/ScrollToTop'
 import AdminLayout from './components/AdminLayout'  // ✅ NEW
+import SplashScreen from './components/SplashScreen';
+import { useState } from 'react';
 
 const App = () => {
+  const [showSplash, setShowSplash] = useState(true);
   return (
     <>
+      {showSplash && <SplashScreen onFinish={() => setShowSplash(false)} />}
       <CurrencyProvider>
         <ProductState>
           <BrowserRouter>
