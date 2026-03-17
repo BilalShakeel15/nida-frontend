@@ -2933,7 +2933,7 @@ label {
   }
 
   .signup-page {
-    margin-top: 13rem;
+    /* margin-top: 13rem; */
   }
   .card-container {
     flex-direction: column;
