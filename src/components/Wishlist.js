@@ -83,13 +83,21 @@ const Wishlist = () => {
     }
 
     return (
-        <div className="header-container-wishlist" style={{ marginTop: "6rem", marginBottom: "10rem", maxWidth: "1600px" }}>
-            <h1 className="shop-heading mb-4" style={{ marginBottom: "3rem" }}>My Wishlist</h1>
+        <div className="wishlist-page">
+            {/* Heading */}
+            <div className="wishlist-header">
+                <h1 className="shop-heading">My Wishlist</h1>
+                <div className="wishlist-underline"></div>
+            </div>
 
             {wishlist.length === 0 ? (
-                <div className="text-center">
+                <div className="text-center" style={{ padding: '2rem' }}>
                     <h3>Your wishlist is empty</h3>
-                    <button className="btn btn-primary mt-3" onClick={() => navigate("/shop")}>
+                    <button
+                        className="btn btn-primary mt-3"
+                        style={{ backgroundColor: '#d4358c', border: 'none' }}
+                        onClick={() => navigate("/shop")}
+                    >
                         Go Shopping
                     </button>
                 </div>
@@ -112,7 +120,6 @@ const Wishlist = () => {
                                     onMouseLeave={() => handleMouseLeave(product._id)}
                                 />
 
-                                {/* Remove Wishlist Button */}
                                 <button
                                     className="wishlist-btn"
                                     title="Remove from wishlist"
@@ -135,7 +142,6 @@ const Wishlist = () => {
                                             >
                                                 <i className="far fa-eye"></i>
                                             </button>
-
                                             <button
                                                 className="action-btn cart-btn"
                                                 onClick={(e) => handleCart(e, product)}
@@ -149,10 +155,8 @@ const Wishlist = () => {
 
                             <div className="product-info">
                                 <p className="product-category">{product.category}</p>
-                                <h3 className="product-title" style={{ textAlign: "justify" }}>{product.title}</h3>
-                                <p className="product-price text-justify" style={{ textAlign: "justify" }}>
-                                    {convertedPrice(product.price)} {curr}
-                                </p>
+                                <h3 className="product-title">{product.title}</h3>
+                                <p className="product-price">{convertedPrice(product.price)} {curr}</p>
                             </div>
                         </div>
                     ))}

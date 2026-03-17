@@ -499,3 +499,55 @@
     width: 105%;
   }
 } */
+
+/* =====================
+   WISHLIST PAGE
+===================== */
+.wishlist-page {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1.5rem 4rem;
+  margin-top: 5rem; /* navbar height */
+}
+
+.wishlist-header {
+  text-align: center;
+  padding: 0 0 1.5rem;
+  position: relative;
+  top: 1rem;
+}
+
+.wishlist-header .shop-heading {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-family: 'Playfair Display', 'Crimson Text', serif;
+  font-style: italic;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 0.5rem;
+}
+
+.wishlist-underline {
+  width: 80px;
+  height: 3px;
+  background: #ffc3c3;
+  border-radius: 10px;
+  margin: 0 auto;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .wishlist-page {
+    margin-top: 4rem;
+    padding: 0 1rem 3rem;
+  }
+
+  .wishlist-header {
+    padding: 0 0 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .wishlist-page {
+    padding: 0 0.75rem 2rem;
+  }
+}
