@@ -134,7 +134,7 @@ const Top = () => {
                   <Link to="/" className="navbar-brand d-flex align-items-center justify-content-center"
                     style={{ fontFamily: "Amatic SC", fontWeight: "bold", fontSize: "28px" }}>
                     <img src={logo} alt="Nida Logo" style={{ height: "62px" }} className="me-2" />
-                    NIDA HANDMADE CARDS
+                    NIDA CRAFTERIA
                   </Link>
                 </div>
 
@@ -228,7 +228,7 @@ const Top = () => {
             <Link to="/" onClick={handleLinkClick}
               style={{ fontFamily: "Amatic SC", fontWeight: "bold", fontSize: "18px", textDecoration: "none", color: "#333", display: "flex", alignItems: "center" }}>
               <img src={logo} alt="Nida Logo" style={{ height: "36px" }} className="me-2" />
-              NIDA HANDMADE CARDS
+              NIDA CRAFTERIA
             </Link>
 
             {/* Mobile cart icons */}
@@ -286,7 +286,7 @@ const Top = () => {
             <Link to="/" onClick={handleLinkClick}
               style={{ fontFamily: "Amatic SC", fontWeight: "bold", fontSize: "26px", textDecoration: "none", color: "#333", display: "flex", alignItems: "center", marginBottom: "1rem" }}>
               <img src={logo} alt="Nida Logo" style={{ height: "48px" }} className="me-2" />
-              NIDA HANDMADE CARDS
+              NIDA CRAFTERIA
             </Link>
 
             {/* Nav links */}

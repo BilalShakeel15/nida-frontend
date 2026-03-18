@@ -7,75 +7,64 @@ import {
   FaPinterest,
   FaXTwitter,
 } from "react-icons/fa6";
-import logo from '../images/nida logo.png'
+import logo from '../images/nida logo.png';
+
 const Footer = () => {
   const navigate = useNavigate();
+
+  const handleAboutClick = () => {
+    if (window.location.pathname === '/') {
+      document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      navigate('/');
+      setTimeout(() => {
+        document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+      }, 400);
+    }
+  };
+
+  const handleCategoryClick = (categoryName) => {
+    localStorage.setItem('item', categoryName);
+    navigate('/shop');
+  };
+
   return (
     <footer className="footer">
       <div className="footer-container">
+
         {/* Left Section */}
         <div className="footer-left">
           <div className="footer-logo">
             <img src={logo} alt="Nida Handmade Cards" />
-            <h3>NIDA HANDMADE CARDS</h3>
+            <h3>NIDA CRAFTERIA</h3>
           </div>
           <p>
-            Nida Handmade Cards is your creative companion for all things crafty.
+            Nida CRAFTERIA is your creative companion for all things crafty.
             From handmade flowers to die cuts, every piece is designed to help
             you create memories that last.
           </p>
 
           <div className="footer-socials">
-            <a href="https://x.com/nida_tanweer" target="_blank" rel="noreferrer">
-              <FaXTwitter />
-            </a>
-            <a
-              href="https://www.facebook.com/nidahandmadeflowers?mibextid=ZbWKwL"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <FaFacebookF />
-            </a>
-            <a
-              href="https://www.instagram.com/nidaflowers?igsh=OWJnOTI5MHRjM3No"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <FaInstagram />
-            </a>
-            <a
-              href="https://www.linkedin.com/in/nida-tanweer-a59246254/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <FaLinkedinIn />
-            </a>
-            <a
-              href="https://www.pinterest.com/uenida/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <FaPinterest />
-            </a>
+            <a href="https://x.com/nida_tanweer" target="_blank" rel="noreferrer"><FaXTwitter /></a>
+            <a href="https://www.facebook.com/nidahandmadeflowers?mibextid=ZbWKwL" target="_blank" rel="noreferrer"><FaFacebookF /></a>
+            <a href="https://www.instagram.com/nidaflowers?igsh=OWJnOTI5MHRjM3No" target="_blank" rel="noreferrer"><FaInstagram /></a>
+            <a href="https://www.linkedin.com/in/nida-tanweer-a59246254/" target="_blank" rel="noreferrer"><FaLinkedinIn /></a>
+            <a href="https://www.pinterest.com/uenida/" target="_blank" rel="noreferrer"><FaPinterest /></a>
           </div>
 
-          <button
-            className="shop-btn footer-cta"
-            onClick={() => navigate("/categorydisplay")}
-          >
+          <button className="shop-btn footer-cta" onClick={() => navigate("/categorydisplay")}>
             Shop Now
           </button>
         </div>
 
-        {/* Right Section */}
+        {/* Right Section — Desktop only full, mobile compact */}
         <div className="footer-links">
           <div>
             <h4>Company</h4>
             <Link to="/">Home</Link>
-            <Link to="/about">About Us</Link>
+            <span className="footer-link-btn" onClick={handleAboutClick}>About Us</span>
             <Link to="/categorydisplay">Shop</Link>
             <Link to="/contact">Contact</Link>
-            {/* <Link to="/testimonials">Testimonials</Link> */}
           </div>
 
           <div>
@@ -84,13 +73,13 @@ const Footer = () => {
             <Link to="/blogs">Blogs</Link>
           </div>
 
-          <div>
+          <div className="footer-shop-col">
             <h4>Shop</h4>
-            <Link to="#">Flowers</Link>
-            <Link to="#">Glitters</Link>
-            <Link to="#">Embellishments</Link>
-            <Link to="#">Shakers</Link>
-            <Link to="#">Envelopes</Link>
+            <span className="footer-link-btn" onClick={() => handleCategoryClick('Flowers')}>Flowers</span>
+            <span className="footer-link-btn" onClick={() => handleCategoryClick('Glitters')}>Glitters</span>
+            <span className="footer-link-btn" onClick={() => handleCategoryClick('Embellishments')}>Embellishments</span>
+            <span className="footer-link-btn" onClick={() => handleCategoryClick('Shakers')}>Shakers</span>
+            <span className="footer-link-btn" onClick={() => handleCategoryClick('Envelopes')}>Envelopes</span>
           </div>
         </div>
       </div>
@@ -101,7 +90,6 @@ const Footer = () => {
           © Nida Crafteria. All Rights Reserved.
         </div>
       </div>
-
     </footer>
   );
 };
