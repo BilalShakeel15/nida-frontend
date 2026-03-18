@@ -2,163 +2,159 @@
 import React, { useState, useEffect } from 'react';
 import { useCurrency } from '../context/CurrencyContext';
 import Toast from './Toast';
-import CityDropdown from './CityDropdown';  // ✅ NEW
+import CityDropdown from './CityDropdown';
 import './ShoppingCart.css';
+
+// ── Payment method config ──────────────────────────────────────
+const PAYMENT_METHODS = [
+  {
+    id: 'nayapay',
+    label: 'NayaPay',
+    color: '#6C3CE1',
+    bg: '#f0ebff',
+    border: '#c9b8f7',
+    initials: 'N',
+    details: [
+      { label: 'Account Name', value: 'Nida Handmade Cards' },
+      { label: 'NayaPay Number', value: '0300-1234567' },
+      { label: 'IBAN', value: 'PK12NAYA0000001234567890' },
+    ],
+  },
+  {
+    id: 'easypaisa',
+    label: 'EasyPaisa',
+    color: '#2CB34A',
+    bg: '#e8f8ec',
+    border: '#a3ddb0',
+    initials: 'E',
+    details: [
+      { label: 'Account Name', value: 'Nida Handmade Cards' },
+      { label: 'EasyPaisa Number', value: '0333-9876543' },
+      { label: 'Store ID', value: 'EP-2024-NIDA' },
+    ],
+  },
+  {
+    id: 'bank',
+    label: 'Habib Metro Bank',
+    color: '#C8102E',
+    bg: '#fff0f2',
+    border: '#f5b8c0',
+    initials: 'HM',
+    details: [
+      { label: 'Bank Name', value: 'Habib Metropolitan Bank' },
+      { label: 'Account Name', value: 'Nida Handmade Cards' },
+      { label: 'Account Number', value: '0123-4567890-001' },
+      { label: 'IBAN', value: 'PK36MPBL0001234567890' },
+      { label: 'Branch Code', value: '0123 — Karachi Main' },
+    ],
+  },
+];
 
 const ShoppingCart = () => {
   const API = process.env.REACT_APP_API_URL;
   const { booked, curr, removeItem, decrement_buy, setBooked } = useCurrency();
   const image_temp = `${API}/uploads/`;
-  const [details, setDetails] = useState({ name: "", email: "", contact: "", address: "" });
+  const [details, setDetails] = useState({ name: '', email: '', contact: '', address: '' });
   const [paymentScreenshot, setPaymentScreenshot] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
   const [toast, setToast] = useState(null);
   const [step, setStep] = useState(1);
-  const [country, setCountry] = useState("Pakistan");
-  const [city, setCity] = useState("");  // ✅ city state separate
+  const [country, setCountry] = useState('Pakistan');
+  const [city, setCity] = useState('');
   const [deliveryFee, setDeliveryFee] = useState(0);
+  const [paymentMethod, setPaymentMethod] = useState('nayapay'); // ← NEW
 
   useEffect(() => {
-    if (city === "Karachi") {
-      setDeliveryFee(200);
-    } else if (city && city !== "") {
-      setDeliveryFee(400);
-    } else {
-      setDeliveryFee(0);
-    }
+    if (city === 'Karachi') setDeliveryFee(200);
+    else if (city) setDeliveryFee(400);
+    else setDeliveryFee(0);
   }, [city]);
 
   const updateQuantity = (index, action) => {
-    setBooked(prevBooked => {
-      return prevBooked.map((item, i) => {
-        if (i === index) {
-          const newQuantity = action === 'increase' ? item.quantity + 1 : item.quantity - 1;
-          if (newQuantity <= 0) return item;
-          return { ...item, quantity: newQuantity };
-        }
-        return item;
-      });
-    });
+    setBooked(prev =>
+      prev.map((item, i) => {
+        if (i !== index) return item;
+        const q = action === 'increase' ? item.quantity + 1 : item.quantity - 1;
+        return q <= 0 ? item : { ...item, quantity: q };
+      })
+    );
   };
 
-  const remove = (index) => {
-    removeItem(index);
-    decrement_buy();
-  };
-
-  const calculateTotal = () => {
-    return booked.reduce((total, item) => total + (item.price * item.quantity), 0);
-  };
+  const remove = (index) => { removeItem(index); decrement_buy(); };
+  const calculateTotal = () => booked.reduce((t, i) => t + i.price * i.quantity, 0);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    if (file) {
-      if (file.size > 10 * 1024 * 1024) {
-        setToast({ message: 'File size must be less than 10MB', type: 'warning' });
-        return;
-      }
-      setPaymentScreenshot(file);
+    if (!file) return;
+    if (file.size > 10 * 1024 * 1024) {
+      setToast({ message: 'File size must be less than 10MB', type: 'warning' });
+      return;
     }
+    setPaymentScreenshot(file);
   };
 
   const uploadScreenshot = async (file) => {
-    const formData = new FormData();
-    formData.append('image', file);
-    try {
-      const response = await fetch(`${API}/api/admin/uploadScreenshot`, {
-        method: 'POST',
-        body: formData
-      });
-      const data = await response.json();
-      return data.imageUrl;
-    } catch (error) {
-      console.error('Error uploading screenshot:', error);
-      throw error;
-    }
+    const fd = new FormData();
+    fd.append('image', file);
+    const res = await fetch(`${API}/api/admin/uploadScreenshot`, { method: 'POST', body: fd });
+    const data = await res.json();
+    return data.imageUrl;
   };
 
   const checkout = async (e) => {
     e.preventDefault();
     const { name, email, contact, address } = details;
-
     if (!name || !email || !contact || !address) {
-      setToast({ message: 'All fields are required', type: 'warning' });
-      return;
+      setToast({ message: 'All fields are required', type: 'warning' }); return;
     }
     if (!paymentScreenshot) {
-      setToast({ message: 'Payment screenshot is required', type: 'warning' });
-      return;
+      setToast({ message: 'Payment screenshot is required', type: 'warning' }); return;
     }
-
     setIsUploading(true);
-
     try {
       const screenshotUrl = await uploadScreenshot(paymentScreenshot);
-      const Ids = [];
-      const q = [];
-      booked.forEach(element => {
-        Ids.push(element.id);
-        q.push(element.quantity);
-      });
-
-      const response = await fetch(`${API}/api/admin/addOrder`, {
+      const Ids = [], q = [];
+      booked.forEach(el => { Ids.push(el.id); q.push(el.quantity); });
+      const res = await fetch(`${API}/api/admin/addOrder`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          Ids, q, name, email, contact,
-          cc: city,
-          address,
-          paymentScreenshot: screenshotUrl
-        })
+        body: JSON.stringify({ Ids, q, name, email, contact, cc: city, address, paymentScreenshot: screenshotUrl }),
       });
-
-      const json = await response.json();
+      const json = await res.json();
       if (json.success) {
         setToast({ message: 'Order placed successfully!', type: 'success' });
-        setDetails({ name: "", email: "", contact: "", address: "" });
-        setCity("");
-        setPaymentScreenshot(null);
-        setBooked([]);
+        setDetails({ name: '', email: '', contact: '', address: '' });
+        setCity(''); setPaymentScreenshot(null); setBooked([]);
         setTimeout(() => window.location.reload(), 2000);
       } else {
         setToast({ message: 'Error placing order: ' + json.message, type: 'error' });
       }
-    } catch (error) {
-      console.error('Error during checkout:', error);
+    } catch (err) {
       setToast({ message: 'Error during checkout. Please try again.', type: 'error' });
     } finally {
       setIsUploading(false);
     }
   };
 
-  const handledetails = (e) => {
-    setDetails({ ...details, [e.target.name]: e.target.value });
-  };
-
+  const handledetails = (e) => setDetails({ ...details, [e.target.name]: e.target.value });
   const closeToast = () => setToast(null);
 
   const handleContinueToCheckout = () => {
-    if (booked.length === 0) {
-      setToast({ message: 'Your cart is empty', type: 'warning' });
-      return;
-    }
+    if (!booked.length) { setToast({ message: 'Your cart is empty', type: 'warning' }); return; }
     setStep(2);
   };
 
   const handleContinueToPayment = () => {
+    if (!city) { setToast({ message: 'Please select a city', type: 'warning' }); return; }
     const { name, email, contact, address } = details;
-    if (!city) {
-      setToast({ message: 'Please select a city', type: 'warning' });
-      return;
-    }
     if (!name || !email || !contact || !address) {
-      setToast({ message: 'Please fill all shipping information', type: 'warning' });
-      return;
+      setToast({ message: 'Please fill all shipping information', type: 'warning' }); return;
     }
     setStep(3);
   };
 
   const grandTotal = calculateTotal() + deliveryFee;
+  const selectedMethod = PAYMENT_METHODS.find(m => m.id === paymentMethod);
 
   return (
     <>
@@ -167,30 +163,28 @@ const ShoppingCart = () => {
 
         {/* Progress Steps */}
         <div className="cart-progress">
-          <div className={`progress-step ${step >= 1 ? 'active' : ''} ${step > 1 ? 'completed' : ''}`}>
-            <div className="step-circle">
-              {step > 1 ? <i className="fas fa-check"></i> : <i className="fas fa-shopping-cart"></i>}
-            </div>
-            <span className="step-label">Shopping Cart</span>
-          </div>
-          <div className={`progress-line ${step >= 2 ? 'active' : ''}`}></div>
-          <div className={`progress-step ${step >= 2 ? 'active' : ''} ${step > 2 ? 'completed' : ''}`}>
-            <div className="step-circle">
-              {step > 2 ? <i className="fas fa-check"></i> : <i className="fas fa-user"></i>}
-            </div>
-            <span className="step-label">Checkout Info</span>
-          </div>
-          <div className={`progress-line ${step >= 3 ? 'active' : ''}`}></div>
-          <div className={`progress-step ${step >= 3 ? 'active' : ''}`}>
-            <div className="step-circle">
-              <i className="fas fa-upload"></i>
-            </div>
-            <span className="step-label">Payment Proof</span>
-          </div>
+          {[
+            { label: 'Shopping Cart', icon: 'fa-shopping-cart', n: 1 },
+            { label: 'Checkout Info', icon: 'fa-user', n: 2 },
+            { label: 'Payment Proof', icon: 'fa-upload', n: 3 },
+          ].map((s, idx) => (
+            <React.Fragment key={s.n}>
+              <div className={`progress-step ${step >= s.n ? 'active' : ''} ${step > s.n ? 'completed' : ''}`}>
+                <div className="step-circle">
+                  {step > s.n
+                    ? <i className="fas fa-check"></i>
+                    : <i className={`fas ${s.icon}`}></i>}
+                </div>
+                <span className="step-label">{s.label}</span>
+              </div>
+              {idx < 2 && <div className={`progress-line ${step > s.n ? 'active' : ''}`}></div>}
+            </React.Fragment>
+          ))}
         </div>
 
         <div className="cart-content">
-          {/* STEP 1 */}
+
+          {/* ── STEP 1 ─────────────────────────────── */}
           {step === 1 && (
             <div className="cart-main-container">
               <div className="cart-items-section">
@@ -207,8 +201,8 @@ const ShoppingCart = () => {
                   </div>
                 ) : (
                   <>
-                    {booked.map((book, index) => (
-                      <div className="cart-item" key={index}>
+                    {booked.map((book, i) => (
+                      <div className="cart-item" key={i}>
                         <img src={`${image_temp}${book.image}`} alt={book.title} className="item-image" />
                         <div className="item-details">
                           <h4 className="item-title">{book.title}</h4>
@@ -216,16 +210,14 @@ const ShoppingCart = () => {
                           <div className="item-quantity">
                             <span className="qty-label">Qty:</span>
                             <div className="qty-controls">
-                              <button onClick={() => updateQuantity(index, 'decrease')} className="qty-btn">−</button>
+                              <button onClick={() => updateQuantity(i, 'decrease')} className="qty-btn">−</button>
                               <span className="qty-value">{book.quantity}</span>
-                              <button onClick={() => updateQuantity(index, 'increase')} className="qty-btn">+</button>
+                              <button onClick={() => updateQuantity(i, 'increase')} className="qty-btn">+</button>
                             </div>
                           </div>
                         </div>
                         <div className="item-right">
-                          <button className="btn-remove" onClick={() => remove(index)}>
-                            <i className="fas fa-trash"></i>
-                          </button>
+                          <button className="btn-remove" onClick={() => remove(i)}><i className="fas fa-trash"></i></button>
                           <p className="item-total-price">{(book.price * book.quantity).toFixed(2)} {curr}</p>
                         </div>
                       </div>
@@ -243,8 +235,8 @@ const ShoppingCart = () => {
               {booked.length > 0 && (
                 <div className="order-summary">
                   <div className="card-header small"><h3>Order Summary</h3></div>
-                  {booked.map((book, index) => (
-                    <div className="summary-item" key={index}>
+                  {booked.map((book, i) => (
+                    <div className="summary-item" key={i}>
                       <img src={`${image_temp}${book.image}`} alt={book.title} />
                       <div className="summary-item-info">
                         <p className="summary-item-title">{book.title}</p>
@@ -259,7 +251,7 @@ const ShoppingCart = () => {
                     <div className="summary-row total"><span>Total</span><span>{grandTotal.toFixed(2)} {curr}</span></div>
                     <div className="secure-checkout">
                       <i className="fas fa-check-circle"></i>
-                      <div className='secure-checkout-text'>
+                      <div className="secure-checkout-text">
                         <p className="secure-title">Secure Checkout</p>
                         <p className="secure-subtitle">Your information is protected</p>
                       </div>
@@ -270,17 +262,13 @@ const ShoppingCart = () => {
             </div>
           )}
 
-          {/* STEP 2 */}
+          {/* ── STEP 2 ─────────────────────────────── */}
           {step === 2 && (
             <div className="cart-main-container">
               <div className="cart-items-section">
                 <div className="card-header"><h2>Shipping Information</h2></div>
-
                 <div className="form-section">
-                  <div className="section-header">
-                    <i className="fas fa-user"></i>
-                    <h4>Personal Details</h4>
-                  </div>
+                  <div className="section-header"><i className="fas fa-user"></i><h4>Personal Details</h4></div>
                   <div className="form-row">
                     <div className="form-group">
                       <label>Full Name *</label>
@@ -304,11 +292,7 @@ const ShoppingCart = () => {
                 </div>
 
                 <div className="form-section">
-                  <div className="section-header">
-                    <i className="fas fa-map-marker-alt"></i>
-                    <h4>Shipping Address</h4>
-                  </div>
-
+                  <div className="section-header"><i className="fas fa-map-marker-alt"></i><h4>Shipping Address</h4></div>
                   <div className="form-group">
                     <label>Country *</label>
                     <select value={country} onChange={e => setCountry(e.target.value)} className="form-select">
@@ -316,8 +300,7 @@ const ShoppingCart = () => {
                       <option value="Other">Other</option>
                     </select>
                   </div>
-
-                  {country === "Other" && (
+                  {country === 'Other' && (
                     <div className="info-box warning">
                       <i className="fas fa-exclamation-triangle"></i>
                       <div>
@@ -326,25 +309,18 @@ const ShoppingCart = () => {
                       </div>
                     </div>
                   )}
-
-                  {country === "Pakistan" && (
+                  {country === 'Pakistan' && (
                     <>
-                      {/* ✅ CityDropdown replaces old <select> */}
                       <div className="form-group">
                         <label>City *</label>
-                        <CityDropdown
-                          value={city}
-                          onChange={(selectedCity) => setCity(selectedCity)}
-                          placeholder="Select your city..."
-                        />
-                        {city && city !== "Other" && (
+                        <CityDropdown value={city} onChange={setCity} placeholder="Select your city..." />
+                        {city && city !== 'Other' && (
                           <p className="delivery-info">
                             <i className="fas fa-truck"></i>
-                            Delivery fee: <strong>{city === "Karachi" ? "PKR 200" : "PKR 400"}</strong>
+                            Delivery fee: <strong>{city === 'Karachi' ? 'PKR 200' : 'PKR 400'}</strong>
                           </p>
                         )}
                       </div>
-
                       <div className="form-group">
                         <label>Street Address *</label>
                         <input type="text" name="address" placeholder="123 Main Street, Apt 4B" value={details.address} onChange={handledetails} className="form-input" />
@@ -354,10 +330,8 @@ const ShoppingCart = () => {
                 </div>
 
                 <div className="checkout-actions">
-                  <button className="btn-secondary" onClick={() => setStep(1)}>
-                    <i className="fas fa-arrow-left"></i> Previous Step
-                  </button>
-                  <button className="btn-primary" onClick={handleContinueToPayment} disabled={country === "Other"}>
+                  <button className="btn-secondary" onClick={() => setStep(1)}><i className="fas fa-arrow-left"></i> Previous Step</button>
+                  <button className="btn-primary" onClick={handleContinueToPayment} disabled={country === 'Other'}>
                     Continue to Payment Proof <i className="fas fa-arrow-right"></i>
                   </button>
                 </div>
@@ -365,8 +339,8 @@ const ShoppingCart = () => {
 
               <div className="order-summary">
                 <div className="card-header small"><h3>Order Summary</h3></div>
-                {booked.map((book, index) => (
-                  <div className="summary-item" key={index}>
+                {booked.map((book, i) => (
+                  <div className="summary-item" key={i}>
                     <img src={`${image_temp}${book.image}`} alt={book.title} />
                     <div className="summary-item-info">
                       <p className="summary-item-title">{book.title}</p>
@@ -381,7 +355,7 @@ const ShoppingCart = () => {
                   <div className="summary-row total"><span>Total</span><span>{grandTotal.toFixed(2)} {curr}</span></div>
                   <div className="secure-checkout">
                     <i className="fas fa-check-circle"></i>
-                    <div className='secure-checkout-text'>
+                    <div className="secure-checkout-text">
                       <p className="secure-title">Secure Checkout</p>
                       <p className="secure-subtitle">Your information is protected</p>
                     </div>
@@ -391,44 +365,96 @@ const ShoppingCart = () => {
             </div>
           )}
 
-          {/* STEP 3 */}
+          {/* ── STEP 3 ─────────────────────────────── */}
           {step === 3 && (
             <div className="cart-main-container">
               <div className="cart-items-section">
                 <div className="card-header"><h2>Upload Payment Proof</h2></div>
 
-                <div className="info-box">
+                {/* Instructions box */}
+                <div className="info-box" style={{ margin: '1.5rem 2rem 0' }}>
                   <i className="fas fa-info-circle"></i>
                   <div>
                     <p><strong>Payment Instructions:</strong></p>
                     <ul>
-                      <li>Make payment to our account using your preferred method</li>
+                      <li>Choose your preferred payment method below</li>
+                      <li>Make payment using the details shown</li>
                       <li>Take a screenshot of the payment confirmation</li>
-                      <li>Upload the screenshot below</li>
-                      <li>We'll verify your payment and process your order</li>
+                      <li>Upload the screenshot — we'll verify & process your order</li>
                     </ul>
                   </div>
                 </div>
 
-                <div className="payment-details">
-                  <h4>Our Payment Details:</h4>
-                  <div className="detail-row"><span className="detail-label">Bank Name:</span><span className="detail-value">ABC Bank</span></div>
-                  <div className="detail-row"><span className="detail-label">Account Name:</span><span className="detail-value">Nida Handmade Cards</span></div>
-                  <div className="detail-row"><span className="detail-label">Account Number:</span><span className="detail-value">1234 5678 9012 3456</span></div>
-                  <div className="detail-row highlight"><span className="detail-label">Amount to Pay:</span><span className="detail-value">{grandTotal.toFixed(2)} {curr}</span></div>
+                {/* ── Payment Method Selector ── */}
+                <div className="pm-section">
+                  <p className="pm-heading">Choose Payment Method</p>
+                  <div className="pm-options">
+                    {PAYMENT_METHODS.map((method) => (
+                      <label
+                        key={method.id}
+                        className={`pm-card ${paymentMethod === method.id ? 'pm-card--selected' : ''}`}
+                        style={{
+                          '--pm-color': method.color,
+                          '--pm-bg': method.bg,
+                          '--pm-border': method.border,
+                        }}
+                      >
+                        <input
+                          type="radio"
+                          name="paymentMethod"
+                          value={method.id}
+                          checked={paymentMethod === method.id}
+                          onChange={() => setPaymentMethod(method.id)}
+                          style={{ display: 'none' }}
+                        />
+                        {/* Icon circle */}
+                        <div className="pm-icon" style={{ backgroundColor: method.color }}>
+                          <span style={{ color: '#fff', fontWeight: 800, fontSize: method.initials.length > 1 ? '11px' : '16px', fontFamily: 'Inter' }}>
+                            {method.initials}
+                          </span>
+                        </div>
+                        <span className="pm-label">{method.label}</span>
+                        {/* Selected tick */}
+                        {paymentMethod === method.id && (
+                          <span className="pm-tick"><i className="fas fa-check"></i></span>
+                        )}
+                      </label>
+                    ))}
+                  </div>
                 </div>
 
+                {/* ── Bank Details (dynamic) ── */}
+                <div className="payment-details" style={{ borderLeft: `4px solid ${selectedMethod.color}` }}>
+                  <div className="pd-header">
+                    <div className="pm-icon pm-icon--sm" style={{ backgroundColor: selectedMethod.color }}>
+                      <span style={{ color: '#fff', fontWeight: 800, fontSize: selectedMethod.initials.length > 1 ? '10px' : '14px', fontFamily: 'Inter' }}>
+                        {selectedMethod.initials}
+                      </span>
+                    </div>
+                    <h4>{selectedMethod.label} Payment Details</h4>
+                  </div>
+                  {selectedMethod.details.map((d, i) => (
+                    <div className="detail-row" key={i}>
+                      <span className="detail-label">{d.label}:</span>
+                      <span className="detail-value">{d.value}</span>
+                    </div>
+                  ))}
+                  <div className="detail-row highlight">
+                    <span className="detail-label">Amount to Pay:</span>
+                    <span className="detail-value">{grandTotal.toFixed(2)} {curr}</span>
+                  </div>
+                </div>
+
+                {/* Upload */}
                 <div className="upload-section">
                   <label className="upload-label">Upload Payment Screenshot *</label>
                   <div className="upload-area">
-                    <input type="file" id="file-upload" accept="image/png, image/jpeg, image/jpg" onChange={handleFileChange} style={{ display: 'none' }} />
+                    <input type="file" id="file-upload" accept="image/png,image/jpeg,image/jpg" onChange={handleFileChange} style={{ display: 'none' }} />
                     <label htmlFor="file-upload" className="upload-box">
                       {paymentScreenshot ? (
                         <div className="preview-container">
                           <img src={URL.createObjectURL(paymentScreenshot)} alt="Payment screenshot" className="preview-image" />
-                          <button className="btn-change-image" onClick={(e) => { e.preventDefault(); setPaymentScreenshot(null); }}>
-                            Change Image
-                          </button>
+                          <button className="btn-change-image" onClick={(e) => { e.preventDefault(); setPaymentScreenshot(null); }}>Change Image</button>
                         </div>
                       ) : (
                         <>
@@ -442,9 +468,7 @@ const ShoppingCart = () => {
                 </div>
 
                 <div className="checkout-actions">
-                  <button className="btn-secondary" onClick={() => setStep(2)}>
-                    <i className="fas fa-arrow-left"></i> Previous Step
-                  </button>
+                  <button className="btn-secondary" onClick={() => setStep(2)}><i className="fas fa-arrow-left"></i> Previous Step</button>
                   <button className="btn-primary" onClick={checkout} disabled={isUploading || !paymentScreenshot}>
                     {isUploading ? 'Processing...' : 'Place Order'} <i className="fas fa-check"></i>
                   </button>
@@ -453,8 +477,8 @@ const ShoppingCart = () => {
 
               <div className="order-summary">
                 <div className="card-header small"><h3>Order Summary</h3></div>
-                {booked.map((book, index) => (
-                  <div className="summary-item" key={index}>
+                {booked.map((book, i) => (
+                  <div className="summary-item" key={i}>
                     <img src={`${image_temp}${book.image}`} alt={book.title} />
                     <div className="summary-item-info">
                       <p className="summary-item-title">{book.title}</p>
@@ -469,7 +493,7 @@ const ShoppingCart = () => {
                   <div className="summary-row total"><span>Total</span><span>{grandTotal.toFixed(2)} {curr}</span></div>
                   <div className="secure-checkout">
                     <i className="fas fa-check-circle"></i>
-                    <div className='secure-checkout-text'>
+                    <div className="secure-checkout-text">
                       <p className="secure-title">Secure Checkout</p>
                       <p className="secure-subtitle">Your information is protected</p>
                     </div>
@@ -478,6 +502,7 @@ const ShoppingCart = () => {
               </div>
             </div>
           )}
+
         </div>
       </div>
     </>
