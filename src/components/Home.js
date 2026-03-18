@@ -15,6 +15,16 @@ import timelineImage from '../images/Subtract.png'
 import Prefooter from './Prefooter';
 import { useNavigate } from "react-router-dom";
 import HeroCarousel from './HeroCarousel';
+import Sana from '../images/Sana.jpeg'
+import Patricia from '../images/Patricia.jpeg'
+import Iftikhar from '../images/Iftikhar.jpeg'
+import Menucake from '../images/Menucake.jpeg'
+import Ammarah from '../images/Ammarah.jpeg'
+import Sabahat from '../images/Sabahat.jpeg'
+import Yasmin from '../images/Yasmin.jpeg'
+import Faryal from '../images/Faryal.jpeg'
+import Linda from '../images/Linda.jpeg'
+import Ameena from '../images/Ameena.jpeg'
 
 const Home = ({ introText = "Unique handmade flowers, leaves, die cuts, and more crafted with love and creativity." }) => {
   const API = process.env.REACT_APP_API_URL;
@@ -120,84 +130,148 @@ const Home = ({ introText = "Unique handmade flowers, leaves, die cuts, and more
 
   const reviews = [
     {
-      name: "Michael Lee",
-      role: "Travel Enthusiast",
-      text: "Winzy made my trip effortless! The booking process was seamless, and the stay was beyond expectations. Highly recommend!Winzy made my trip effortless! The booking process was seamless, and the stay was beyond expectations. Highly recommend!",
-      image: "https://i.pravatar.cc/100?img=1",
+      name: "Sana Najam",
+      role: "from Karachi",
+      text: "I honestly get lost looking at your handmade flowers, the detailing is so fine that I can stare at them for hours. Every time I think “this time I’ll get    my cards made with these flowers,” you come up with something even more beautiful. There’s truly magic in your hands. The cleanliness, the precision, and the attention to detail are just outstanding. Wishing you all the success and good luck, you truly deserve it. Keep creating this beauty ✨",
+      image: Sana,
     },
     {
-      name: "Alex Morgan",
+      name: "Patricia Grier",
+      role: "Crafter",
+      text: "Look forward to seeing your cards with every new release, they are always so colorful and beautiful!!",
+      image: Patricia,
+    },
+    {
+      name: "Iftikhar Alam",
       role: "Digital Nomad",
-      text: "Everything felt smooth and easy. Customer support was quick and very friendly!",
-      image: "https://i.pravatar.cc/100?img=2",
+      text: "Nida, your paper creations are pure art! 😊 Every time you whip up something new, I'm all eyes. I know it's gonna be intricate, gorgeous, and full of heart. The way you play with textures, colors, and designs is like magic. Whether it's a handmade card, a envelope, or a frame, your attention to detail and passion shine through. People are obsessed with your work and I'm always excited to see what you'll come up with next. Your creativity inspires me! 💖",
+      image: Iftikhar,
     },
     {
-      name: "Sarah Williams",
-      role: "Digital Nomad",
-      text: "A flawless experience from start to finish. I’ll definitely use this again.",
-      image: "https://i.pravatar.cc/100?img=3",
+      name: "The menu cakes",
+      role: "Business Owner",
+      text: "I have ordered handcrafted beautiful flowers made by Nida, they have really helped in elevating The Menu's work!! flowers are very finely detailed!",
+      image: Menucake,
     },
     {
-      name: "Olivia Thompson",
-      role: "Adventure Seeker",
-      text: "The service was beyond my expectations. It truly made my trip memorable.",
-      image: "https://i.pravatar.cc/100?img=4",
+      name: "Ammarah Shakir",
+      role: "from Karachi",
+      text: "Handmade creativity has a special kind of magic, every detail reflects time, love, and passion. It’s not just art, it’s a piece of the creator’s heart. 💖",
+      image: Ammarah,
     },
     {
-      name: "David Chen",
-      role: "Photographer",
-      text: "Incredible platform! The design is beautiful and everything just works.",
-      image: "https://i.pravatar.cc/100?img=5",
+      name: "Sabahat Naheed",
+      role: "Cardmaker",
+      text: "I recently purchased paper flowers from Nida Tanveer, and I’m really happy with the quality. The flowers are beautifully made and added a very attractive, professional look to my handmade cards. Will definitely buy again.",
+      image: Sabahat,
     },
     {
-      name: "Emma Brown",
-      role: "Travel Blogger",
-      text: "Such an easy way to plan my trip. Will recommend to my friends for sure!",
-      image: "https://i.pravatar.cc/100?img=6",
+      name: "Artilicious by Yasmin Ansari",
+      role: "Business Owner",
+      text: "Absolutely in love with these handmade paper flowers! Each piece is crafted with so much elegance and attention to detail—it’s hard to believe they’re not real. Truly beautiful work made with passion and creativity. Highly recommend checking out her page ✨Proud of you and your beautiful creativity! ❤️",
+      image: Yasmin,
     },
     {
-      name: "James Taylor",
-      role: "Backpacker",
-      text: "I love how intuitive everything felt. It saved me so much time.",
-      image: "https://i.pravatar.cc/100?img=7",
+      name: "Faryal",
+      role: "from Peshawar",
+      text: "Nida's handmade flowers are absolute magic for my cardmaking! Every petal is so delicate and real, they instantly elevate my designs. Not only this, the cards she creats using her flowers are magical, just like a WOW!",
+      image: Faryal,
     },
     {
-      name: "Sophia Wilson",
-      role: "Designer",
-      text: "Great design, great features, and top-notch support. Couldn’t ask for more!",
-      image: "https://i.pravatar.cc/100?img=8",
+      name: "Linda Walter",
+      role: "Crafter",
+      text: "I love looking at pictures of your flowers.  They are beautifully stunning in structure, color & appearance.  The work and textures prove what a talented person you are to make such exquisite works of art.  Keep it up as the world needs more of your beauty in it!  God bless & good luck.",
+      image: Linda,
     },
     {
-      name: "Ethan Johnson",
-      role: "Explorer",
-      text: "Traveling has never been easier for me. Kudos to the team!",
-      image: "https://i.pravatar.cc/100?img=9",
+      name: "Dr. Ameena from Art Adventures",
+      role: "Crafter",
+      text: "I have used Nida’s Flowers on many of my articles, and the quality and fineness are truly remarkable. Each flower is a genuine work of art, crafted with exceptional detail and care. Her creations have elevated my articles to an entirely new level.Highly recommended!",
+      image: Ameena,
     },
-    {
-      name: "Mia Davis",
-      role: "Nomad",
-      text: "One of the best tools I’ve used. Made everything simple and enjoyable.",
-      image: "https://i.pravatar.cc/100?img=10",
-    },
-    {
-      name: "Daniel Martinez",
-      role: "Engineer",
-      text: "From signup to booking – everything was seamless. I’m impressed.",
-      image: "https://i.pravatar.cc/100?img=11",
-    },
-    {
-      name: "Isabella White",
-      role: "Writer",
-      text: "Beautiful interface and great usability. I’ll use it again soon!",
-      image: "https://i.pravatar.cc/100?img=12",
-    },
-    {
-      name: "Isabella White",
-      role: "Writer",
-      text: "Beautiful interface and great usability. I’ll use it again soon!",
-      image: "https://i.pravatar.cc/100?img=12",
-    },
+
   ];
+
+  // const reviews = [
+  //   {
+  //     name: "Michael Lee",
+  //     role: "Travel Enthusiast",
+  //     text: "Winzy made my trip effortless! The booking process was seamless, and the stay was beyond expectations. Highly recommend!Winzy made my trip effortless! The booking process was seamless, and the stay was beyond expectations. Highly recommend!",
+  //     image: "https://i.pravatar.cc/100?img=1",
+  //   },
+  //   {
+  //     name: "Alex Morgan",
+  //     role: "Digital Nomad",
+  //     text: "Everything felt smooth and easy. Customer support was quick and very friendly!",
+  //     image: "https://i.pravatar.cc/100?img=2",
+  //   },
+  //   {
+  //     name: "Sarah Williams",
+  //     role: "Digital Nomad",
+  //     text: "A flawless experience from start to finish. I’ll definitely use this again.",
+  //     image: "https://i.pravatar.cc/100?img=3",
+  //   },
+  //   {
+  //     name: "Olivia Thompson",
+  //     role: "Adventure Seeker",
+  //     text: "The service was beyond my expectations. It truly made my trip memorable.",
+  //     image: "https://i.pravatar.cc/100?img=4",
+  //   },
+  //   {
+  //     name: "David Chen",
+  //     role: "Photographer",
+  //     text: "Incredible platform! The design is beautiful and everything just works.",
+  //     image: "https://i.pravatar.cc/100?img=5",
+  //   },
+  //   {
+  //     name: "Emma Brown",
+  //     role: "Travel Blogger",
+  //     text: "Such an easy way to plan my trip. Will recommend to my friends for sure!",
+  //     image: "https://i.pravatar.cc/100?img=6",
+  //   },
+  //   {
+  //     name: "James Taylor",
+  //     role: "Backpacker",
+  //     text: "I love how intuitive everything felt. It saved me so much time.",
+  //     image: "https://i.pravatar.cc/100?img=7",
+  //   },
+  //   {
+  //     name: "Sophia Wilson",
+  //     role: "Designer",
+  //     text: "Great design, great features, and top-notch support. Couldn’t ask for more!",
+  //     image: "https://i.pravatar.cc/100?img=8",
+  //   },
+  //   {
+  //     name: "Ethan Johnson",
+  //     role: "Explorer",
+  //     text: "Traveling has never been easier for me. Kudos to the team!",
+  //     image: "https://i.pravatar.cc/100?img=9",
+  //   },
+  //   {
+  //     name: "Mia Davis",
+  //     role: "Nomad",
+  //     text: "One of the best tools I’ve used. Made everything simple and enjoyable.",
+  //     image: "https://i.pravatar.cc/100?img=10",
+  //   },
+  //   {
+  //     name: "Daniel Martinez",
+  //     role: "Engineer",
+  //     text: "From signup to booking – everything was seamless. I’m impressed.",
+  //     image: "https://i.pravatar.cc/100?img=11",
+  //   },
+  //   {
+  //     name: "Isabella White",
+  //     role: "Writer",
+  //     text: "Beautiful interface and great usability. I’ll use it again soon!",
+  //     image: "https://i.pravatar.cc/100?img=12",
+  //   },
+  //   {
+  //     name: "Isabella White",
+  //     role: "Writer",
+  //     text: "Beautiful interface and great usability. I’ll use it again soon!",
+  //     image: "https://i.pravatar.cc/100?img=12",
+  //   },
+  // ];
 
   const [activeTestiIndex, setActiveTestiIndex] = useState(0);
   const [startIndex, setStartIndex] = useState(0);

@@ -4,6 +4,10 @@ import { useCurrency } from '../context/CurrencyContext';
 import Toast from './Toast';
 import CityDropdown from './CityDropdown';
 import './ShoppingCart.css';
+import nayapayLogo from '../images/nayapay-logo.png';
+import easypaissaLogo from '../images/Easypaisa-logo.png';
+import bankLogo from '../images/bank-logo.png';
+
 
 // ── Payment method config ──────────────────────────────────────
 const PAYMENT_METHODS = [
@@ -13,39 +17,39 @@ const PAYMENT_METHODS = [
     color: '#6C3CE1',
     bg: '#f0ebff',
     border: '#c9b8f7',
-    initials: 'N',
+    logo: nayapayLogo,
     details: [
-      { label: 'Account Name', value: 'Nida Handmade Cards' },
-      { label: 'NayaPay Number', value: '0300-1234567' },
-      { label: 'IBAN', value: 'PK12NAYA0000001234567890' },
+      { label: 'Account Name', value: 'Umm E Nida' },
+      { label: 'NayaPay Number', value: '0332-8249366' },
+      { label: 'IBAN', value: 'PK15NAYA1234503328249366' },
     ],
   },
-  {
-    id: 'easypaisa',
-    label: 'EasyPaisa',
-    color: '#2CB34A',
-    bg: '#e8f8ec',
-    border: '#a3ddb0',
-    initials: 'E',
-    details: [
-      { label: 'Account Name', value: 'Nida Handmade Cards' },
-      { label: 'EasyPaisa Number', value: '0333-9876543' },
-      { label: 'Store ID', value: 'EP-2024-NIDA' },
-    ],
-  },
+  // {
+  //   id: 'easypaisa',
+  //   label: 'EasyPaisa',
+  //   color: '#2CB34A',
+  //   bg: '#e8f8ec',
+  //   border: '#a3ddb0',
+  //   logo: easypaissaLogo,
+  //   details: [
+  //     { label: 'Account Name', value: 'Nida Handmade Cards' },
+  //     { label: 'EasyPaisa Number', value: '0332-8249366' },
+  //     { label: 'Store ID', value: 'EP-2024-NIDA' },
+  //   ],
+  // },
   {
     id: 'bank',
-    label: 'Habib Metro Bank',
+    label: 'Bank Al Habib',
     color: '#C8102E',
     bg: '#fff0f2',
     border: '#f5b8c0',
-    initials: 'HM',
+    logo: bankLogo,
     details: [
-      { label: 'Bank Name', value: 'Habib Metropolitan Bank' },
-      { label: 'Account Name', value: 'Nida Handmade Cards' },
-      { label: 'Account Number', value: '0123-4567890-001' },
-      { label: 'IBAN', value: 'PK36MPBL0001234567890' },
-      { label: 'Branch Code', value: '0123 — Karachi Main' },
+      { label: 'Bank Name', value: 'Bank Al Habib' },
+      { label: 'Account Name', value: 'Umm-e-Nida' },
+      { label: 'Account Number', value: '1254 0095016730 029' },
+      { label: 'IBAN', value: 'PK31BAHL1254009501673002' },
+      { label: 'Branch Code', value: '1254-Billys heights' },
     ],
   },
 ];
@@ -408,10 +412,9 @@ const ShoppingCart = () => {
                           style={{ display: 'none' }}
                         />
                         {/* Icon circle */}
-                        <div className="pm-icon" style={{ backgroundColor: method.color }}>
-                          <span style={{ color: '#fff', fontWeight: 800, fontSize: method.initials.length > 1 ? '11px' : '16px', fontFamily: 'Inter' }}>
-                            {method.initials}
-                          </span>
+                        <div className="pm-icon" style={{ backgroundColor: '#fff', border: `2px solid ${method.color}` }}>
+                          <img src={method.logo} alt={method.label}
+                            style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '10px', padding: '4px' }} />
                         </div>
                         <span className="pm-label">{method.label}</span>
                         {/* Selected tick */}
@@ -426,10 +429,9 @@ const ShoppingCart = () => {
                 {/* ── Bank Details (dynamic) ── */}
                 <div className="payment-details" style={{ borderLeft: `4px solid ${selectedMethod.color}` }}>
                   <div className="pd-header">
-                    <div className="pm-icon pm-icon--sm" style={{ backgroundColor: selectedMethod.color }}>
-                      <span style={{ color: '#fff', fontWeight: 800, fontSize: selectedMethod.initials.length > 1 ? '10px' : '14px', fontFamily: 'Inter' }}>
-                        {selectedMethod.initials}
-                      </span>
+                    <div className="pm-icon pm-icon--sm" style={{ backgroundColor: '#fff', border: `2px solid ${selectedMethod.color}` }}>
+                      <img src={selectedMethod.logo} alt={selectedMethod.label}
+                        style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '7px', padding: '3px' }} />
                     </div>
                     <h4>{selectedMethod.label} Payment Details</h4>
                   </div>

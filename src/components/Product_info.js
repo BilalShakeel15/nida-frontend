@@ -333,7 +333,13 @@ const ProductInfo = () => {
               </button>
             </div>
 
-            <button className="pi-buy-btn">Buy Now</button>
+            <button className="pi-buy-btn" onClick={() => {
+              update_buy();
+              update_booked(product._id, product.title, convertedPrice(product.salePrice || product.price), product.images[0]);
+              navigate('/shoppingcart');
+            }}>
+              Buy Now
+            </button>
 
             {/* Trust Badges */}
             <div className="pi-badges">
