@@ -197,7 +197,20 @@ const ProductInfo = () => {
               </button> */}
 
               {/* Bestseller Badge */}
-              <span className="pi-bestseller-badge">Bestseller</span>
+              {product.tag && (
+                <span
+                  className="product-badge"
+                  style={{
+                    background:
+                      product.tag === 'New' ? '#22c55e' :
+                        product.tag === 'Popular' ? '#f97316' :
+                          product.tag === 'Limited' ? '#ef4444' :
+                            product.tag === 'Sale' ? '#d4358c' : '#999'
+                  }}
+                >
+                  {product.tag}
+                </span>
+              )}
             </div>
 
             <div className="pi-thumbs">
@@ -254,11 +267,20 @@ const ProductInfo = () => {
 
             <p className="pi-desc">{product.description}</p>
 
+            {/* Replace karo yeh pura div: */}
             <div className="pi-price-section">
               <div className="pi-price-main">
-                <span className="pi-price">Rs. {convertedPrice(product.price)}</span>
-                <span className="pi-old">Rs. 800</span>
-                <span className="pi-save">Save 19%</span>
+                {product.salePrice ? (
+                  <>
+                    <span className="pi-price">Rs. {convertedPrice(product.salePrice)}</span>
+                    <span className="pi-old">Rs. {convertedPrice(product.price)}</span>
+                    <span className="pi-save">
+                      Save {Math.round((1 - product.salePrice / product.price) * 100)}%
+                    </span>
+                  </>
+                ) : (
+                  <span className="pi-price">Rs. {convertedPrice(product.price)}</span>
+                )}
               </div>
               <div className="pi-stock-status">Ready to ship</div>
             </div>
@@ -360,7 +382,18 @@ const ProductInfo = () => {
                   <i className="far fa-heart"></i>
                 </button>
 
-                <span className="product-badge">New</span>
+                {/* <span className="product-badge">New</span> ko replace karo: */}
+                {p.tag && (
+                  <span className="product-badge" style={{
+                    background:
+                      p.tag === 'New' ? '#22c55e' :
+                        p.tag === 'Popular' ? '#f97316' :
+                          p.tag === 'Limited' ? '#ef4444' :
+                            p.tag === 'Sale' ? '#d4358c' : '#999'
+                  }}>
+                    {p.tag}
+                  </span>
+                )}
 
                 {hoveredCard === p._id && (
                   <div className="hover-overlay">
@@ -387,7 +420,15 @@ const ProductInfo = () => {
               <div className="product-info">
                 <p className="product-category">{p.category || 'Flowers'}</p>
                 <h3 className="product-title">{p.title}</h3>
-                <p className="product-price">{convertedPrice(p.price)} {curr}</p>
+                {/* Price replace karo: */}
+                {p.salePrice ? (
+                  <div className="product-price-wrap">
+                    <span className="product-price-original">{convertedPrice(p.price)} {curr}</span>
+                    <span className="product-price product-price-sale">{convertedPrice(p.salePrice)} {curr}</span>
+                  </div>
+                ) : (
+                  <p className="product-price">{convertedPrice(p.price)} {curr}</p>
+                )}
               </div>
             </div>
           ))}

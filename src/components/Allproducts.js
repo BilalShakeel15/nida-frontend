@@ -57,9 +57,9 @@ const Allproducts = () => {
         navigate('/adminhome')
     };
 
-    const handleupdate = (id, title, description, quantity, pieces, price, category) => {
+    const handleupdate = (id, title, description, quantity, pieces, price, category, tag, salePrice, highlights) => {
         navigate(`/updateproduct`, {
-            state: { id, title, description, quantity, pieces, price, category }
+            state: { id, title, description, quantity, pieces, price, category, tag, salePrice, highlights }
         });
     };
 
@@ -96,12 +96,16 @@ const Allproducts = () => {
                                 <p>{convertPrice(product.price)} {currency}</p>
                                 {!localStorage.getItem('admin') ? (
                                     <div className="cart">
-                                        <button className="add-to-cart">ADD TO CART</button>
+                                        <button className="add-to-cart">ADD TO CARTtt</button>
                                         <i className="bookmark fas fa-bookmark"></i>
                                     </div>
                                 ) : (
                                     <div className="">
-                                        <i className="fa-solid fa-pen-to-square bookmark" style={{ marginLeft: "0" }} onClick={() => handleupdate(product._id, product.title, product.description, product.quantity, product.pieces, product.price, product.category)}></i>
+                                        <i className="fa-solid fa-pen-to-square bookmark" style={{ marginLeft: "0" }} onClick={() => handleupdate(
+                                            product._id, product.title, product.description,
+                                            product.quantity, product.pieces, product.price,
+                                            product.category, product.tag, product.salePrice, product.highlights
+                                        )}></i>
                                         <i className="fa-solid fa-trash bookmark mx-3" style={{ marginLeft: "0" }} onClick={() => handledel(product._id)}></i>
                                     </div>
                                 )}

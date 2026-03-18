@@ -199,7 +199,7 @@
   letter-spacing: 0px;
   padding: 6px 16px;
   border-radius: 50px;
-  width: 25%;
+  width: fit-content;
   font-family: 'Inter', sans-serif !important;
   margin-right: 0.5rem;
   text-align: center;
@@ -262,6 +262,7 @@
   .products-page {
     justify-content: center;
   }
+
   .product-image-wrapper {
     height: 0px;
   }
@@ -270,11 +271,15 @@
     gap: 25px;
   }
   .product-category {
-    width: 30%;
+    /* width: 30%; */
   }
 }
 
 @media (max-width: 768px) {
+  .product-badge {
+    right: 4px;
+    font-size: 10px;
+  }
   .new-card-container {
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 20px;
@@ -289,7 +294,7 @@
     font-size: 18px;
   }
   .product-category {
-    width: 51%;
+    /* width: 51%; */
   }
 
   .action-btn {
@@ -324,8 +329,9 @@
   }
 
   .wishlist-btn {
-    width: 35px;
-    height: 35px;
+    width: 25px;
+    height: 26px;
+    left: 4px;
   }
 
   .wishlist-btn i {
@@ -343,7 +349,7 @@
 }
 @media (max-width: 440px) {
   .product-category {
-    width: 46%;
+    /* width: 46%; */
     right: 4px;
     position: relative;
     font-size: 10px;
@@ -354,13 +360,13 @@
     /* margin-left: -2rem; */
   }
   .product-category {
-    width: 47%;
+    /* width: 47%; */
     font-size: 8px;
   }
 }
 @media (max-width: 346px) {
   .product-category {
-    width: 30%;
+    /* width: 30%; */
   }
 }
 
@@ -563,4 +569,24 @@
   .wishlist-page {
     padding: 0 0.75rem 2rem;
   }
+}
+
+/* Add to Allproducts.css */
+
+.product-price-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.product-price-original {
+  text-decoration: line-through;
+  color: #999;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.product-price-sale {
+  color: #d4358c;
+  font-weight: 700;
 }

@@ -1,4 +1,3 @@
-// src/components/Addproduct.js 247
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Addproduct.css';
@@ -7,7 +6,8 @@ const Addproduct = () => {
     const API = process.env.REACT_APP_API_URL;
     const [product, setProduct] = useState({
         images: [], title: '', description: '', price: '',
-        quantity: '', pieces: '', category: '', highlights: []
+        quantity: '', pieces: '', category: '',
+        highlights: [], salePrice: '', tag: 'New'
     });
     const [highlightInput, setHighlightInput] = useState('');
     const [imagePreviews, setImagePreviews] = useState([]);
@@ -67,6 +67,8 @@ const Addproduct = () => {
         formData.append('pieces', product.pieces);
         formData.append('category', product.category);
         formData.append('highlights', JSON.stringify(product.highlights));
+        formData.append('tag', product.tag);
+        if (product.salePrice) formData.append('salePrice', product.salePrice);
 
         try {
             const response = await fetch(`${API}/api/product/addproduct`, {
@@ -81,6 +83,14 @@ const Addproduct = () => {
         } finally {
             setLoading(false);
         }
+    };
+
+    const TAG_COLORS = {
+        'New': '#22c55e',
+        'Popular': '#f97316',
+        'Limited': '#ef4444',
+        'Sale': '#d4358c',
+        '': '#999'
     };
 
     return (
@@ -145,6 +155,52 @@ const Addproduct = () => {
                                 <option key={i} value={cat.name}>{cat.name}</option>
                             ))}
                         </select>
+                    </div>
+
+                    {/* ── Tag ── */}
+                    <div className="ap-section">
+                        <label className="ap-label">Product Tag</label>
+                        <div className="ap-tag-options">
+                            {['New', 'Popular', 'Limited', 'Sale', ''].map(t => (
+                                <button
+                                    type="button"
+                                    key={t}
+                                    className={`ap-tag-btn ${product.tag === t ? 'selected' : ''}`}
+                                    style={{
+                                        borderColor: TAG_COLORS[t],
+                                        backgroundColor: product.tag === t ? TAG_COLORS[t] : 'transparent',
+                                        color: product.tag === t ? '#fff' : TAG_COLORS[t],
+                                    }}
+                                    onClick={() => setProduct(p => ({ ...p, tag: t }))}
+                                >
+                                    {t || 'None'}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* ── Sale Price ── */}
+                    <div className="ap-section">
+                        <label className="ap-label">Sale Price (Rs.) <span style={{ color: '#999', fontWeight: 400 }}>— optional</span></label>
+                        <p className="ap-hint">If set, original price will be crossed out and this will show as discounted price</p>
+                        <input
+                            type="number"
+                            className="ap-input"
+                            placeholder="Leave empty for no sale"
+                            name="salePrice"
+                            value={product.salePrice}
+                            onChange={onChange}
+                            min="0"
+                        />
+                        {product.salePrice && product.price && (
+                            <div className="ap-sale-preview">
+                                <span style={{ textDecoration: 'line-through', color: '#999', marginRight: 8 }}>Rs. {product.price}</span>
+                                <span style={{ color: '#d4358c', fontWeight: 700 }}>Rs. {product.salePrice}</span>
+                                <span style={{ marginLeft: 8, background: '#fce7f3', color: '#d4358c', padding: '2px 8px', borderRadius: 6, fontSize: 13 }}>
+                                    {Math.round((1 - product.salePrice / product.price) * 100)}% OFF
+                                </span>
+                            </div>
+                        )}
                     </div>
 
                     {/* Highlights */}

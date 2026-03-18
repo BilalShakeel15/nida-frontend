@@ -153,7 +153,21 @@ const Shop = () => {
                                 <button className="wishlist-btn" onClick={(e) => e.stopPropagation()}>
                                     <i className="far fa-heart"></i>
                                 </button>
-                                <span className="product-badge">New</span>
+                                {/* Replace: <span className="product-badge">New</span> */}
+                                {product.tag && (
+                                    <span
+                                        className="product-badge"
+                                        style={{
+                                            background:
+                                                product.tag === 'New' ? '#22c55e' :
+                                                    product.tag === 'Popular' ? '#f97316' :
+                                                        product.tag === 'Limited' ? '#ef4444' :
+                                                            product.tag === 'Sale' ? '#d4358c' : '#999'
+                                        }}
+                                    >
+                                        {product.tag}
+                                    </span>
+                                )}
                                 {hoveredCard === product._id && (
                                     <div className="hover-overlay">
                                         <div className="action-buttons">
@@ -178,7 +192,15 @@ const Shop = () => {
                             <div className="product-info">
                                 <p className="product-category">{product.category || 'Flowers'}</p>
                                 <h3 className="product-title">{product.title}</h3>
-                                <p className="product-price">{convertedPrice(product.price)} {curr}</p>
+                                {/* Replace: <p className="product-price">{convertedPrice(product.price)} {curr}</p> */}
+                                {product.salePrice ? (
+                                    <div className="product-price-wrap">
+                                        <span className="product-price-original">{convertedPrice(product.price)} {curr}</span>
+                                        <span className="product-price product-price-sale">{convertedPrice(product.salePrice)} {curr}</span>
+                                    </div>
+                                ) : (
+                                    <p className="product-price">{convertedPrice(product.price)} {curr}</p>
+                                )}
                             </div>
                         </div>
                     ))

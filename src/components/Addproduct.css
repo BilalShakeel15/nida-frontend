@@ -216,3 +216,38 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Add at end of Addproduct.css */
+
+.ap-tag-options {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.ap-tag-btn {
+  padding: 7px 18px;
+  border-radius: 20px;
+  border: 2px solid;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: transparent;
+}
+
+.ap-tag-btn:hover {
+  opacity: 0.85;
+}
+
+.ap-sale-preview {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: #fff5f8;
+  border-radius: 8px;
+  border: 1px solid #fce7f3;
+}
