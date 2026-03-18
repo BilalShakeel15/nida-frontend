@@ -295,7 +295,11 @@
 
 @media (max-width: 480px) {
   .shop-heading {
-    /* margin-left: -2rem; */
+    font-size: clamp(1.8rem, 8vw, 2.8rem); /* automatically fit hoga */
+    white-space: nowrap; /* ek line mein rakho */
+    overflow: hidden;
+    text-overflow: ellipsis; /* agar phir bhi bara ho toh ... */
+    max-width: 100%;
   }
   .new-card-container {
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -339,7 +343,7 @@
 }
 @media (max-width: 390px) {
   .shop-heading {
-    /* margin-left: -4rem; */
+    /* margin-left: -2rem; */
   }
   .product-category {
     width: 70%;

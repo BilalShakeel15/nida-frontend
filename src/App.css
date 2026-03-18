@@ -1959,17 +1959,27 @@ body {
   content: '';
   position: absolute;
   top: 56%;
-  left: 50%;
   bottom: 0;
+  left: 50%;
   transform: translateX(-50%);
-  width: 120px; /* underline length */
-  height: 6px; /* thickness */
+  width: clamp(60px, 40%, 120px); /* word ke hisaab se adjust hoga */
+  height: 6px;
   background: #ffc3c3;
-  border-radius: 10px; /* rounded edges */
+  border-radius: 10px;
+}
+@media (max-width: 1024px) {
+  .header-container::after {
+    top: 56%;
+  }
 }
 @media (max-width: 768px) {
   .header-container::after {
-    top: 48%;
+    top: 42%;
+  }
+}
+@media (max-width: 480px) {
+  .header-container::after {
+    width: 81px;
   }
 }
 .header-container-wishlist {
