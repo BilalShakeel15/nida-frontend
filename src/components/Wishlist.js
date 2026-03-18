@@ -113,7 +113,7 @@ const Wishlist = () => {
                         >
                             <div className="product-image-wrapper">
                                 <img
-                                    src={`${imageBase}${product.images[hoveredImageIndexes[product._id] || 0]}`}
+                                    src={`${product.images[hoveredImageIndexes[product._id] || 0]}`}
                                     alt={product.title}
                                     className="product-main-image"
                                     onMouseEnter={() => handleMouseEnter(product._id)}

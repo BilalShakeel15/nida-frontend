@@ -85,7 +85,8 @@ const ShoppingCart = () => {
   };
 
   const remove = (index) => { removeItem(index); decrement_buy(); };
-  const calculateTotal = () => booked.reduce((t, i) => t + i.price * i.quantity, 0);
+  // YE KARO:
+  const calculateTotal = () => booked.reduce((t, i) => t + (i.salePrice || i.price) * i.quantity, 0);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];

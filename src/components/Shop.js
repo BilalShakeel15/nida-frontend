@@ -75,10 +75,11 @@ const Shop = () => {
         return str.charAt(0).toUpperCase() + str.slice(1);
     };
 
-    const handlecart = (e, id, title, price, image) => {
+    // YE KARO:
+    const handlecart = (e, id, title, price, image, salePrice) => {
         e.stopPropagation();
         update_buy();
-        update_booked(id, title, convertedPrice(price), image);
+        update_booked(id, title, convertedPrice(salePrice || price), image);
     };
 
     const handleViewProduct = (e, productId) => {
@@ -180,7 +181,7 @@ const Shop = () => {
                                             </button>
                                             <button
                                                 className="action-btn cart-btn"
-                                                onClick={(e) => handlecart(e, product._id, product.title, product.price, product.images[0])}
+                                                onClick={(e) => handlecart(e, product._id, product.title, product.price, product.images[0], product.salePrice)}
                                                 title="Add to Cart"
                                             >
                                                 <i className="fas fa-shopping-cart"></i>

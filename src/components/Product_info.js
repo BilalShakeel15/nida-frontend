@@ -313,7 +313,7 @@ const ProductInfo = () => {
               </div>
 
               <span className="pi-total-text">
-                Total: <strong>Rs. {(convertedPrice(product.price) * quantity).toFixed(0)}</strong>
+                Total: <strong>Rs. {(convertedPrice(product.salePrice || product.price) * quantity).toFixed(0)}</strong>
               </span>
             </div>
 
