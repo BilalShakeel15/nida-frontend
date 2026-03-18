@@ -153,6 +153,10 @@ body {
 
 /* ===== HERO SECTION ===== */
 
+.hero-cta {
+  display: none !important;
+}
+
 .modern-hero {
   width: 100%;
   padding: 90px 0 70px;
@@ -379,8 +383,24 @@ body {
   }
 }
 
+@media (max-width: 994px) {
+  .hero-cta {
+    display: flex !important;
+    /* margin: 0 auto 1rem; */
+  }
+  .shop-btn {
+    margin: 1.5rem auto 2rem auto;
+    position: relative;
+    bottom: 2rem;
+  }
+}
+
 /* Small Tablets */
 @media (max-width: 768px) {
+  .hero-cta {
+    display: flex;
+    /* margin: 0 auto 1rem; */
+  }
   .modern-hero {
     padding: 50px 0 40px;
   }

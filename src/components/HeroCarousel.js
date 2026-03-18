@@ -90,6 +90,7 @@ const HeroCarousel = () => {
                         and floral paper art designed for meaningful gifting.
                     </h1>
                 </div>
+                <button className="shop-btn hero-cta">Shop Now</button>
 
                 <div
                     className="gallery-wall"
