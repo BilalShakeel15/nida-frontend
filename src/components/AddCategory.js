@@ -17,7 +17,7 @@ const AddCategory = () => {
             try {
                 const res = await fetch(`${API}/api/admin/getcategory`);
                 const data = await res.json();
-                setCategories(data);
+                setCategories(Array.isArray(data) ? data : []);
             } catch (err) { console.error(err); }
         };
         fetchCategories();
@@ -53,6 +53,7 @@ const AddCategory = () => {
                 setPreview(null);
                 const res = await fetch(`${API}/api/admin/getcategory`);
                 const updated = await res.json();
+                setCategories(Array.isArray(updated) ? updated : []);
                 setCategories(updated);
             }
         } catch (err) { console.error(err); }

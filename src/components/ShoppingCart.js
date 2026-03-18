@@ -207,7 +207,7 @@ const ShoppingCart = () => {
                   <>
                     {booked.map((book, i) => (
                       <div className="cart-item" key={i}>
-                        <img src={`${image_temp}${book.image}`} alt={book.title} className="item-image" />
+                        <img src={`${book.image}`} alt={book.title} className="item-image" />
                         <div className="item-details">
                           <h4 className="item-title">{book.title}</h4>
                           <p className="item-price-single">{book.price} {curr} <span>each</span></p>
@@ -241,7 +241,7 @@ const ShoppingCart = () => {
                   <div className="card-header small"><h3>Order Summary</h3></div>
                   {booked.map((book, i) => (
                     <div className="summary-item" key={i}>
-                      <img src={`${image_temp}${book.image}`} alt={book.title} />
+                      <img src={`${book.image}`} alt={book.title} />
                       <div className="summary-item-info">
                         <p className="summary-item-title">{book.title}</p>
                         <p className="summary-item-qty">Qty: {book.quantity}</p>
@@ -345,7 +345,7 @@ const ShoppingCart = () => {
                 <div className="card-header small"><h3>Order Summary</h3></div>
                 {booked.map((book, i) => (
                   <div className="summary-item" key={i}>
-                    <img src={`${image_temp}${book.image}`} alt={book.title} />
+                    <img src={`${book.image}`} alt={book.title} />
                     <div className="summary-item-info">
                       <p className="summary-item-title">{book.title}</p>
                       <p className="summary-item-qty">Qty: {book.quantity}</p>
@@ -481,7 +481,7 @@ const ShoppingCart = () => {
                 <div className="card-header small"><h3>Order Summary</h3></div>
                 {booked.map((book, i) => (
                   <div className="summary-item" key={i}>
-                    <img src={`${image_temp}${book.image}`} alt={book.title} />
+                    <img src={`${book.image}`} alt={book.title} />
                     <div className="summary-item-info">
                       <p className="summary-item-title">{book.title}</p>
                       <p className="summary-item-qty">Qty: {book.quantity}</p>

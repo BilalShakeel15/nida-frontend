@@ -184,7 +184,7 @@ const AdminHome = () => {
                 <div className="adm-product-rank">#{i + 1}</div>
                 <img
                   className="adm-product-img"
-                  src={p.images?.[0] ? `${API}/uploads/${p.images[0]}` : 'https://via.placeholder.com/48'}
+                  src={p.images?.[0] ? `${p.images[0]}` : 'https://via.placeholder.com/48'}
                   alt={p.title}
                 />
                 <div className="adm-product-info">

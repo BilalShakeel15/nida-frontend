@@ -85,10 +85,10 @@ const OrderDetails = () => {
           {order.paymentScreenshot ? (
             <div className="od-payment">
               <img
-                src={`${API}/uploads/${order.paymentScreenshot}`}
+                src={`${order.paymentScreenshot}`}
                 alt="Payment"
                 className="od-payment-img"
-                onClick={() => window.open(`${API}/uploads/${order.paymentScreenshot}`, '_blank')}
+                onClick={() => window.open(`${order.paymentScreenshot}`, '_blank')}
               />
               <p className="od-payment-hint">Click image to view full size</p>
             </div>
@@ -111,7 +111,7 @@ const OrderDetails = () => {
             {products.map((product, index) => (
               <div className="od-product" key={index}>
                 <img
-                  src={product?.images?.[0] ? `${API}/uploads/${product.images[0]}` : 'https://via.placeholder.com/100'}
+                  src={product?.images?.[0] ? `${product.images[0]}` : 'https://via.placeholder.com/100'}
                   alt={product?.title}
                   className="od-product-img"
                 />

@@ -93,7 +93,7 @@ const Banner = () => {
           <div className="bn-current-grid">
             {banner.map((img, i) => (
               <div key={i} className="bn-current-item">
-                <img src={`${API}/uploads/${img}`} alt={`Banner ${i + 1}`} />
+                <img src={img} alt={`Banner ${i + 1}`} />
                 <span className="bn-item-num">{i + 1}</span>
               </div>
             ))}

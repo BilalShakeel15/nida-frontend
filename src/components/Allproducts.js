@@ -86,7 +86,7 @@ const Allproducts = () => {
                     filteredProducts.map(product => (
                         <div className="product-card" key={product._id}>
                             <img
-                                src={`${API}/uploads/${product.images[hoveredImageIndexes[product._id] || 0]}` || 'default_image.jpg'}
+                                src={`${product.images[hoveredImageIndexes[product._id] || 0]}` || 'default_image.jpg'}
                                 alt={product.name}
                                 onMouseEnter={() => handleMouseEnter(product._id)}
                                 onMouseLeave={() => handleMouseLeave(product._id)}

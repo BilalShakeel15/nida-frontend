@@ -121,14 +121,14 @@ const ProductInfo = () => {
     }
   };
 
-  const image_temp = `${API}/uploads/`;
-  const [mainImage, setMainImage] = useState(`${image_temp}${product?.images[0]}`);
+  // const image_temp = `${API}/uploads/`;
+  const [mainImage, setMainImage] = useState(`${product?.images[0]}`);
   useEffect(() => {
-    setMainImage(`${image_temp}${product?.images[0]}`);
+    setMainImage(`${product?.images[0]}`);
     setActiveThumb(0); // reset active thumbnail
   }, [product]);
   const handleThumbnailClick = (image, index) => {
-    setMainImage(`${image_temp}${image}`);
+    setMainImage(`${image}`);
     setActiveThumb(index);
   };
 
@@ -221,7 +221,7 @@ const ProductInfo = () => {
                   onClick={() => handleThumbnailClick(img, i)}
                 >
                   <img
-                    src={`${image_temp}${img}`}
+                    src={img}
                     className="pi-thumb"
                     alt={`${product.title} ${i + 1}`}
                   />
@@ -374,7 +374,7 @@ const ProductInfo = () => {
             >
               <div className="product-image-wrapper">
                 <img
-                  src={`${API}/uploads/${p.images[hoveredImageIndexes[p._id] || 0]}`}
+                  src={`${p.images[hoveredImageIndexes[p._id] || 0]}`}
                   alt={p.title}
                   className="product-main-image"
                   onMouseEnter={() => handleMouseEnter(p._id)}

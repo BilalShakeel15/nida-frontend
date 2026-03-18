@@ -144,7 +144,7 @@ const Shop = () => {
                         >
                             <div className="product-image-wrapper">
                                 <img
-                                    src={`${API}/uploads/${product.images[hoveredImageIndexes[product._id] || 0]}`}
+                                    src={`${product.images[hoveredImageIndexes[product._id] || 0]}`}
                                     alt={product.title}
                                     className="product-main-image"
                                     onMouseEnter={() => handleMouseEnter(product._id)}

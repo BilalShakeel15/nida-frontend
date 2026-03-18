@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 
 const HeroCarousel = () => {
     const API = process.env.REACT_APP_API_URL;
-    const BASE_URL = `${API}/uploads/`;
+    // const BASE_URL = `${API}/uploads/`;
 
     const [banner, setBanner] = useState([]);
     const [current, setCurrent] = useState(0);
@@ -105,7 +105,7 @@ const HeroCarousel = () => {
                             <div className={`gallery-panel panel-${pos + 1}`} key={pos}>
                                 {img ? (
                                     <img
-                                        src={`${BASE_URL}${img}`}
+                                        src={img}
                                         alt={`gallery-${pos}`}
                                         style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                                     />
