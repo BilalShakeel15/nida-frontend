@@ -157,7 +157,7 @@ const Top = () => {
                       <li className="nav-item">
                         <Link to="/login" className="nav-link">
                           <button className="btn px-3 d-flex justify-content-center"
-                            style={{ width: "98px", height: "36px", fontSize: "16px", fontFamily: "Inter", backgroundColor: "#d4358c", color: "white", border: "2px solid #d4358c" }}>
+                            style={{ width: "98px", height: "36px", fontSize: "16px", fontFamily: "Inter", backgroundColor: "#d4358c", color: "white", border: "2px solid #d4358c", position: "relative", left: "4px" }}>
                             Sign In
                           </button>
                         </Link>

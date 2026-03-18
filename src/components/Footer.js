@@ -39,7 +39,7 @@ const Footer = () => {
             <h3>NIDA CRAFTERIA</h3>
           </div>
           <p>
-            Nida CRAFTERIA is your creative companion for all things crafty.
+            Nida Crafteria is your creative companion for all things crafty.
             From handmade flowers to die cuts, every piece is designed to help
             you create memories that last.
           </p>
@@ -52,9 +52,9 @@ const Footer = () => {
             <a href="https://www.pinterest.com/uenida/" target="_blank" rel="noreferrer"><FaPinterest /></a>
           </div>
 
-          <button className="shop-btn footer-cta" onClick={() => navigate("/categorydisplay")}>
+          {/* <button className="shop-btn footer-cta" onClick={() => navigate("/categorydisplay")}>
             Shop Now
-          </button>
+          </button> */}
         </div>
 
         {/* Right Section — Desktop only full, mobile compact */}
